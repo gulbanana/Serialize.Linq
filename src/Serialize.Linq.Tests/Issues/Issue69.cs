@@ -1,9 +1,4 @@
-﻿#if NETCOREAPP1_0
-// skip this test for NETCOREAPP1_0 -->
-// System.MissingMethodException : Method not found: 'System.Linq.Expressions.Expression`1<!0> System.Linq.Expressions.Expression`1.Update(System.Linq.Expressions.Expression, System.Collections.Generic.IEnumerable`1<System.Linq.Expressions.ParameterExpression>)'.
-#else
-using Serialize.Linq.Extensions;
-using Serialize.Linq.Tests.Internals;
+﻿using Serialize.Linq.Tests.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -63,4 +58,3 @@ namespace Serialize.Linq.Tests.Issues
         }
     }
 }
-#endif
