@@ -10,7 +10,7 @@
         "System.Xml": ""
       }
     },
-    "netstandard1.6": {
+    "netstandard1.5": {
       "buildOptions": {
         "define": [
           "DNXCORE50"
