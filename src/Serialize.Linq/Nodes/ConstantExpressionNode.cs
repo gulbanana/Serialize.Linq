@@ -22,7 +22,7 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "C")]   
 #endif
-#if !(SILVERLIGHT || DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50 || DOTNET5_4)
     [Serializable]
 #endif
     #endregion

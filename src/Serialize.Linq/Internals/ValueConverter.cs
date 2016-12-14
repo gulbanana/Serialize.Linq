@@ -18,11 +18,7 @@ namespace Serialize.Linq.Internals
     public static class ValueConverter
     {
         private static readonly ConcurrentDictionary<Type, Func<object, Type, object>> _userDefinedConverters;
-        private static readonly Regex _dateRegex = new Regex(@"/Date\((?<date>-?\d+)((?<offsign>[-+])((?<offhours>\d{2})(?<offminutes>\d{2})))?\)/"
-#if !(SILVERLIGHT)
-            ,RegexOptions.Compiled
-#endif
-            );
+        private static readonly Regex _dateRegex = new Regex(@"/Date\((?<date>-?\d+)((?<offsign>[-+])((?<offhours>\d{2})(?<offminutes>\d{2})))?\)/", RegexOptions.Compiled);
         
         /// <summary>
         /// Initializes the <see cref="ValueConverter"/> class.
@@ -126,11 +122,7 @@ namespace Serialize.Linq.Internals
             // TODO: think about a better way; exception could may have an critical impact on performance
             try
             {
-#if SILVERLIGHT
-                return System.Convert.ChangeType(value, convertTo, System.Threading.Thread.CurrentThread.CurrentCulture);
-#else
                 return System.Convert.ChangeType(value, convertTo);
-#endif
             }
             catch (Exception)
             {

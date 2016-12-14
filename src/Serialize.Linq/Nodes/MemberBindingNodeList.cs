@@ -21,7 +21,7 @@ namespace Serialize.Linq.Nodes
 #else
     [CollectionDataContract(Name = "MBL")]    
 #endif
-#if !(SILVERLIGHT || DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50 || DOTNET5_4)
     [Serializable]
 #endif
     #endregion

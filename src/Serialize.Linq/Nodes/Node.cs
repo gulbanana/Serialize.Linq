@@ -17,7 +17,7 @@ namespace Serialize.Linq.Nodes
     /// </summary>
     #region DataContract
     [DataContract]
-#if !(SILVERLIGHT || DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50 || DOTNET5_4)
     [Serializable]
 #endif
     #region KnownTypes
@@ -79,7 +79,7 @@ namespace Serialize.Linq.Nodes
         /// The factory.
         /// </value>
         [IgnoreDataMember]
-#if !(SILVERLIGHT || DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50 || DOTNET5_4)
         [NonSerialized]
 #endif
         public readonly INodeFactory Factory;        
