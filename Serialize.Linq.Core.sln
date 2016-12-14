@@ -6,6 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E603D0DB-EB3B-4189-ABEE-B8E08C24FFFE}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6CC15ADF-F7F5-4E8B-A1E8-4DCBC564B1CA}"
