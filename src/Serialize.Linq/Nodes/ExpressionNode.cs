@@ -23,7 +23,7 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "tE")]    
 #endif
-#if !(DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50)
     [Serializable]
 #endif
     #endregion
@@ -70,7 +70,7 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "E")]
 #endif
-#if !(DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50)
     [Serializable]
 #endif
     #endregion

@@ -21,7 +21,7 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "T")]
 #endif
-#if !(DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50)
     [Serializable]
 #endif
     #endregion
@@ -40,7 +40,7 @@ namespace Serialize.Linq.Nodes
             if (type == null)
                 return;
 
-#if DNXCORE50 || DOTNET5_4
+#if DNXCORE50
             bool isAttributeDefined = type.GetTypeInfo().GetCustomAttribute(typeof(CompilerGeneratedAttribute)) != null;
 #else
             bool isAttributeDefined = Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false);

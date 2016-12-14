@@ -21,7 +21,7 @@ namespace Serialize.Linq.Nodes
 #else
     [CollectionDataContract(Name = "EL")]
 #endif
-#if !(DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50)
     [Serializable]
 #endif
     #endregion

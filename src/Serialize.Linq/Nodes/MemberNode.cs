@@ -26,7 +26,7 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "MN")]
 #endif
-#if !(DNXCORE50 || DOTNET5_4)
+#if !(DNXCORE50)
     [Serializable]
 #endif
     #endregion
