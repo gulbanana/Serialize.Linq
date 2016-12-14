@@ -6,10 +6,10 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Factories;
 using System;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Interfaces;
 
 namespace Serialize.Linq.Nodes
 {
@@ -35,8 +35,7 @@ namespace Serialize.Linq.Nodes
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="elementInit">The element init.</param>
-        public ElementInitNode(INodeFactory factory, ElementInit elementInit)
-            : base(factory)
+        public ElementInitNode(INodeFactory factory, ElementInit elementInit) : base(factory)
         {
             this.Initialize(elementInit);
         }

@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
-using Serialize.Linq.Factories;
-using Serialize.Linq.Interfaces;
+﻿using Serialize.Linq.Factories;
 using Serialize.Linq.Nodes;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Serialize.Linq
 {

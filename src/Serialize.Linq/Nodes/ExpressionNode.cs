@@ -6,20 +6,20 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Factories;
 using System;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Interfaces;
 
 namespace Serialize.Linq.Nodes
 {
     #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE    
-    #if SERIALIZE_LINQ_BORKED_VERION
+#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
+#if SERIALIZE_LINQ_BORKED_VERION
     [DataContract]
-    #else
+#else
     [DataContract(Name = "ExpressionNodeGeneric")]
-    #endif
+#endif
 #else
     [DataContract(Name = "tE")]    
 #endif

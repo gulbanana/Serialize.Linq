@@ -12,7 +12,7 @@ using System.Reflection;
 using Serialize.Linq.Factories;
 using Serialize.Linq.Nodes;
 
-namespace Serialize.Linq.Interfaces
+namespace Serialize.Linq.Factories
 {
     public interface INodeFactory
     {

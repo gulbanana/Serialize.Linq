@@ -6,21 +6,20 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Xunit;
 using Serialize.Linq.Extensions;
 using Serialize.Linq.Factories;
-using Serialize.Linq.Interfaces;
 using Serialize.Linq.Nodes;
 using Serialize.Linq.Tests.Internals;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using Xunit;
 
 namespace Serialize.Linq.Tests
 {
-    
+
     public class ExpressionNodeTests
     {
         [Fact]

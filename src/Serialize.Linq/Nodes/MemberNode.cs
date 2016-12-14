@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Interfaces;
+using Serialize.Linq.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -6,14 +6,13 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Internals;
+using Serialize.Linq.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Serialize.Linq.Interfaces;
-using Serialize.Linq.Internals;
-using Serialize.Linq.Nodes;
 
 namespace Serialize.Linq.Factories
 {

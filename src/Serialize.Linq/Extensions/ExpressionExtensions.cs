@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-#region Copyright
+﻿#region Copyright
 //  Copyright, Sascha Kiefer (esskar)
 //  Released under LGPL License.
 //  
@@ -9,10 +6,11 @@ using System.Linq;
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using System.Linq.Expressions;
 using Serialize.Linq.Factories;
-using Serialize.Linq.Interfaces;
 using Serialize.Linq.Nodes;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Serialize.Linq.Extensions
 {

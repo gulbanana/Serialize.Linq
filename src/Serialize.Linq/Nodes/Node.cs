@@ -8,7 +8,7 @@
 
 using System;
 using System.Runtime.Serialization;
-using Serialize.Linq.Interfaces;
+using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
