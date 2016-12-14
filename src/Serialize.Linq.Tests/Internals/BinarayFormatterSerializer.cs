@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-#if !DNXCORE50
+#if !NETCOREAPP1_0
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Serialize.Linq.Interfaces;

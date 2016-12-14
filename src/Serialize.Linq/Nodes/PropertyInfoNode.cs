@@ -28,7 +28,7 @@ namespace Serialize.Linq.Nodes
         [DataContract(Name = "PI")]
     #endif
 #endif
-#if !(DNXCORE50)
+#if !(NETSTANDARD1_5)
     [Serializable]
 #endif
     #endregion

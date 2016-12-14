@@ -11,11 +11,6 @@
       }
     },
     "netstandard1.5": {
-      "buildOptions": {
-        "define": [
-          "DNXCORE50"
-        ]
-      },
       "dependencies": {
         "NETStandard.Library": "1.6.1",
         "Microsoft.Extensions.PlatformAbstractions": "1.0.0",

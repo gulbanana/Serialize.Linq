@@ -257,7 +257,7 @@ namespace Serialize.Linq.Tests
 
         private static IEnumerable<IBinarySerializer> CreateBinarySerializers()
         {
-#if DNXCORE50
+#if NETCOREAPP1_0
             return new IBinarySerializer[] { new BinarySerializer() };
 #else
             return new IBinarySerializer[] { new BinarySerializer(), new BinaryFormatterSerializer() };

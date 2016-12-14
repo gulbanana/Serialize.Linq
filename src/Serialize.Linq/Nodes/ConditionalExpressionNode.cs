@@ -19,7 +19,7 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "IF")]   
 #endif
-#if !(DNXCORE50)
+#if !(NETSTANDARD1_5)
     [Serializable]
 #endif
     #endregion

@@ -1,5 +1,5 @@
-﻿#if DNXCORE50
-// skip this test for DNXCORE50 -->
+﻿#if NETCOREAPP1_0
+// skip this test for NETCOREAPP1_0 -->
 // System.MissingMethodException : Method not found: 'System.Linq.Expressions.Expression`1<!0> System.Linq.Expressions.Expression`1.Update(System.Linq.Expressions.Expression, System.Collections.Generic.IEnumerable`1<System.Linq.Expressions.ParameterExpression>)'.
 #else
 using System;
