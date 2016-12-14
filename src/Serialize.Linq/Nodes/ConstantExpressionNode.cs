@@ -6,13 +6,12 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Interfaces;
+using Serialize.Linq.Internals;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Serialize.Linq.Exceptions;
-using Serialize.Linq.Interfaces;
-using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -88,9 +87,7 @@ namespace Serialize.Linq.Nodes
                     {
                         var context = new ExpressionContext();
                         if (!value.ToType(context).IsInstanceOfType(this.Value))
-                            throw new InvalidTypeException(
-                                string.Format("Type '{0}' is not an instance of the current value type '{1}'.",
-                                    value.ToType(context), this.Value.GetType()));
+                            throw new Exception($"Type '{value.ToType(context)}' is not an instance of the current value type '{Value.GetType()}'.");
                     }
                 }
                 base.Type = value;

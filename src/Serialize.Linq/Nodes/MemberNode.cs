@@ -6,23 +6,22 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Serialize.Linq.Exceptions;
-using Serialize.Linq.Interfaces;
 
 namespace Serialize.Linq.Nodes
 {
     #region DataContract
 #if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    #if SERIALIZE_LINQ_BORKED_VERION
+#if SERIALIZE_LINQ_BORKED_VERION
     [DataContract]
-    #else
+#else
     [DataContract(Name = "MemberNodeGeneric")]
-    #endif
+#endif
 #else
     [DataContract(Name = "MN")]
 #endif
@@ -131,8 +130,7 @@ namespace Serialize.Linq.Nodes
 
             var member = members.FirstOrDefault(m => m.ToString() == this.Signature);
             if (member == null)
-                throw new MemberNotFoundException("MemberInfo not found. See DeclaringType and MemberSignature properties for more details.", 
-                    declaringType, this.Signature);
+                throw new Exception($"MemberInfo not found. DeclaringType: {declaringType} MemberSignature: {Signature}.");
             return member;
         }
     }
