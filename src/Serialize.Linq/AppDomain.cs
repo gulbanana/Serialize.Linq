@@ -28,23 +28,29 @@ namespace Serialize.Linq
 #elif DNXCORE50 || DOTNET5_4 || DOTNET5_4
         public Assembly[] GetAssemblies()
         {
-            var assemblyNames = PlatformServices.Default.LibraryManager.GetLibraries().SelectMany(lib => lib.Assemblies).Distinct().ToArray();
-
-            var assemblies = new List<Assembly>();
-            foreach (var assembly in assemblyNames.Select(Assembly.Load))
-            {
-                try
-                {
-                    var dummy = assembly.DefinedTypes.ToArray(); // just load all types and skip this assembly of one or more types cannot be resolved
-                    assemblies.Add(assembly);
-                }
-                catch (Exception)
-                {
-                }
-            }
-            
-            return assemblies.ToArray();
+            throw new Exception("not available outside .net desktop");
         }
+
+        // code which used to work on DNX
+        //public Assembly[] GetAssemblies()
+        //{
+        //    var assemblyNames = PlatformServices.Default.LibraryManager.GetLibraries().SelectMany(lib => lib.Assemblies).Distinct().ToArray();
+
+        //    var assemblies = new List<Assembly>();
+        //    foreach (var assembly in assemblyNames.Select(Assembly.Load))
+        //    {
+        //        try
+        //        {
+        //            var dummy = assembly.DefinedTypes.ToArray(); // just load all types and skip this assembly of one or more types cannot be resolved
+        //            assemblies.Add(assembly);
+        //        }
+        //        catch (Exception)
+        //        {
+        //        }
+        //    }
+            
+        //    return assemblies.ToArray();
+        //}
 #else
         public Assembly[] GetAssemblies()
         {

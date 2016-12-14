@@ -1,1 +1,0 @@
-This fork is not maintained and will not accept pull requests.
