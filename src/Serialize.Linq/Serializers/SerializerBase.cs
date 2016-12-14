@@ -3,10 +3,6 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 
-#if WINDOWS_PHONE7
-using Serialize.Linq.Internals;
-#endif
-
 namespace Serialize.Linq.Serializers
 {
     public abstract class SerializerBase

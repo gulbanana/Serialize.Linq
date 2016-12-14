@@ -7,9 +7,7 @@
 #endregion
 
 using System;
-#if !(WINDOWS_PHONE7)
 using System.Collections.Generic;
-#endif
 using System.Reflection;
 
 namespace Serialize.Linq.Internals

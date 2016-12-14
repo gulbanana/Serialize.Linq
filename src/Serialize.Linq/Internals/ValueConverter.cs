@@ -8,9 +8,7 @@
 
 using System;
 using System.Reflection;
-#if !(WINDOWS_PHONE)
 using System.Collections.Concurrent;
-#endif
 using System.Text.RegularExpressions;
 
 namespace Serialize.Linq.Internals
