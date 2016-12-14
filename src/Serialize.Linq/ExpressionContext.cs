@@ -52,21 +52,15 @@ namespace Serialize.Linq
             if (node == null)
                 throw new ArgumentNullException("node");
 
-            if (string.IsNullOrWhiteSpace(node.Name))
+            if (string.IsNullOrWhiteSpace(node.AssemblyQualifiedName))
                 return null;
 
-            return _typeCache.GetOrAdd(node.Name, n =>
+            return _typeCache.GetOrAdd(node.AssemblyQualifiedName, n =>
             {
                 var type = Type.GetType(n);
                 if (type == null)
                 {
-                    foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-                    {
-                        type = assembly.GetType(n);
-                        if (type != null)
-                            break;
-                    }
-
+                    throw new Exception($"Type {node.AssemblyQualifiedName} not available in current app domain");
                 }
                 return type;
             });

@@ -59,6 +59,7 @@ namespace Serialize.Linq.Nodes
                     this.Name = typeDefinition.AssemblyQualifiedName;
                 else
                     this.Name = typeDefinition.FullName;
+                this.AssemblyQualifiedName = typeDefinition.AssemblyQualifiedName;
             }
             else
             {
@@ -66,6 +67,7 @@ namespace Serialize.Linq.Nodes
                     this.Name = type.AssemblyQualifiedName;
                 else
                     this.Name = type.FullName;
+                this.AssemblyQualifiedName = type.AssemblyQualifiedName;
             }
         }
 
@@ -77,6 +79,13 @@ namespace Serialize.Linq.Nodes
 #endif
         #endregion
         public string Name { get; set; }
+
+#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
+        [DataMember(EmitDefaultValue = false)]
+#else
+        [DataMember(EmitDefaultValue = false, Name = "Q")]
+#endif
+        public string AssemblyQualifiedName { get; set; }
 
         #region DataMember
 #if !SERIALIZE_LINQ_OPTIMIZE_SIZE
