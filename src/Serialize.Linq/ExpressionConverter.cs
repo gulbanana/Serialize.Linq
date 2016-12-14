@@ -4,7 +4,7 @@ using Serialize.Linq.Factories;
 using Serialize.Linq.Interfaces;
 using Serialize.Linq.Nodes;
 
-namespace Serialize.Linq.Serializers
+namespace Serialize.Linq
 {
     public class ExpressionConverter
     {

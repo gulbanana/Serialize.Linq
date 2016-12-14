@@ -13,15 +13,15 @@ using System.Linq.Expressions;
 
 namespace Serialize.Linq.Tests.Internals
 {
-    internal static class SerializerTestData
+    public static class SerializerTestData
     {
         private static readonly int[] _arrayOfIds = { 6, 7, 8, 9, 10 };
         private static readonly List<int> _listOfIds = new List<int> { 6, 7, 8, 9, 10 };
-        public static readonly List<Expression> TestExpressions = new List<Expression>
+        public static readonly IEnumerable<object[]> TestExpressions = new List<Expression>
         {
             null,
-            (Expression<Func<bool, bool>>)(b => b), 
-            (Expression<Func<Bar, bool>>)(p => p.LastName == "Miller" && p.FirstName.StartsWith("M")),        
+            (Expression<Func<bool, bool>>)(b => b),
+            (Expression<Func<Bar, bool>>)(p => p.LastName == "Miller" && p.FirstName.StartsWith("M")),
             (Expression<Func<Bar, bool>>)(p => (new [] { 1, 2, 3, 4, 5 }).Contains(p.Id)),
             (Expression<Func<bool>>)(() => true),
             (Expression<Func<bool>>)(() => false),
@@ -36,34 +36,29 @@ namespace Serialize.Linq.Tests.Internals
             (Expression<Func<EmptyStruct>>)(() => new EmptyStruct()),
             (Expression<Func<Bar>>)(() => new Bar()),
             (Expression<Func<IEnumerable<int>, IEnumerable<int>>>)(c => from x in c let a = 100 where (x == a) select x)
-			
-        };
+        }.Concat(LetExpressions()).Select(e => new object[] { e }).ToList();
+
         public static readonly Expression[] TestNodesOnlyExpressions =
         {
             (Expression<Func<Bar, bool>>)(p => _arrayOfIds.Contains(p.Id)),
             (Expression<Func<Bar, bool>>)(p => _listOfIds.Contains(p.Id))
         };
 
-        static SerializerTestData()
-        {
-            AddLetExpressions();
-        }
-
-        private static void AddLetExpressions()
+        private static IEnumerable<Expression> LetExpressions()
         {
             Expression<Func<IEnumerable<int>, IEnumerable<int>>> intExpr = c => 
                 from x in c
                 let test = 8
                 where x == test
                 select x;
-            TestExpressions.Add(intExpr);
+            yield return intExpr;
 
             Expression<Func<IEnumerable<string>, IEnumerable<string>>> strExpr = c => 
                 from x in c
                 let test = "bar"
                 where x == test
                 select x;
-            TestExpressions.Add(strExpr);
+            yield return strExpr;
         }
     }
 }

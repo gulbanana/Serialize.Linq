@@ -2,27 +2,20 @@
 // skip this test for NETCOREAPP1_0 -->
 // System.MissingMethodException : Method not found: 'System.Linq.Expressions.Expression`1<!0> System.Linq.Expressions.Expression`1.Update(System.Linq.Expressions.Expression, System.Collections.Generic.IEnumerable`1<System.Linq.Expressions.ParameterExpression>)'.
 #else
+using Serialize.Linq.Extensions;
+using Serialize.Linq.Tests.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Serializers;
-using Serialize.Linq.Tests.Internals;
 
 namespace Serialize.Linq.Tests.Issues
 {
     /// <summary>
     /// https://github.com/esskar/Serialize.Linq/issues/69
     /// </summary>
-    public class Issue69 : IDisposable
+    public class Issue69
     {
-        private ExpressionSerializer _jsonExpressionSerializer;
-
-        public Issue69()
-        {
-            _jsonExpressionSerializer = new ExpressionSerializer(new JsonSerializer());
-        }
-
         [Fact]
         public void JsonSerializeAndDeserialize1969Utc()
         {
@@ -64,14 +57,9 @@ namespace Serialize.Linq.Tests.Issues
             Expression<Func<DateTime>> actual = () => dt;
             actual = actual.Update(Expression.Constant(dt), new List<ParameterExpression>());
 
-            var serialized = _jsonExpressionSerializer.SerializeText(actual);
-            var expected = _jsonExpressionSerializer.DeserializeText(serialized);
+            var serialized = Json.Serialize(actual);
+            var expected = Json.Deserialize(serialized);
             ExpressionAssert.AreEqual(expected, actual);
-        }
-
-        public void Dispose()
-        {
-            _jsonExpressionSerializer = null;
         }
     }
 }

@@ -13,7 +13,6 @@ using System.Linq.Expressions;
 using Serialize.Linq.Factories;
 using Serialize.Linq.Interfaces;
 using Serialize.Linq.Nodes;
-using Serialize.Linq.Serializers;
 
 namespace Serialize.Linq.Extensions
 {
@@ -32,97 +31,6 @@ namespace Serialize.Linq.Extensions
         {
             var converter = new ExpressionConverter();
             return converter.Convert(expression, factorySettings);
-        }
-
-        /// <summary>
-        /// Converts an expression to an json encoded string.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="factorySettings">The factory settings to use.</param>
-        /// <returns></returns>
-        public static string ToJson(this Expression expression, FactorySettings factorySettings = null)
-        {
-            return expression.ToJson(expression.GetDefaultFactory(factorySettings));
-        }
-        
-        /// <summary>
-        /// Converts an expression to an json encoded string using the given factory.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="factory">The factory.</param>
-        /// <returns></returns>
-        public static string ToJson(this Expression expression, INodeFactory factory)
-        {
-            return expression.ToJson(factory, new JsonSerializer());
-        }
-
-        /// <summary>
-        /// Converts an expression to an json encoded string using the given factory and serializer.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="factory">The factory.</param>
-        /// <param name="serializer">The serializer.</param>
-        /// <returns></returns>
-        public static string ToJson(this Expression expression, INodeFactory factory, IJsonSerializer serializer)
-        {
-            return expression.ToText(factory, serializer);
-        }
-
-        /// <summary>
-        /// Converts an expression to an xml encoded string.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="factorySettings">The factory settings to use.</param>
-        /// <returns></returns>
-        public static string ToXml(this Expression expression, FactorySettings factorySettings = null)
-        {
-            return expression.ToXml(expression.GetDefaultFactory(factorySettings));
-        }
-
-        /// <summary>
-        /// Converts an expression to an xml encoded string using the given factory.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="factory">The factory.</param>
-        /// <returns></returns>
-        public static string ToXml(this Expression expression, INodeFactory factory)
-        {
-            return expression.ToXml(factory, new XmlSerializer());
-        }
-
-        /// <summary>
-        /// Converts an expression to an xml encoded string using the given factory and serializer.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="factory">The factory.</param>
-        /// <param name="serializer">The serializer.</param>
-        /// <returns></returns>
-        public static string ToXml(this Expression expression, INodeFactory factory, IXmlSerializer serializer)
-        {
-            return expression.ToText(factory, serializer);
-        }
-
-        /// <summary>
-        /// Converts an expression to an encoded string using the given factory and serializer.
-        /// The encoding is decided by the serializer.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="factory">The factory.</param>
-        /// <param name="serializer">The serializer.</param>
-        /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// factory
-        /// or
-        /// serializer
-        /// </exception>
-        public static string ToText(this Expression expression, INodeFactory factory, ITextSerializer serializer)
-        {            
-            if(factory == null)
-                throw new ArgumentNullException("factory");
-            if(serializer == null)
-                throw new ArgumentNullException("serializer");
-
-            return serializer.Serialize(factory.Create(expression));
         }
 
         /// <summary>

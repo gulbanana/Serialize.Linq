@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Serialize.Linq.Extensions;
+using Serialize.Linq.Nodes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Serializers;
 
 namespace Serialize.Linq.Tests.Issues
 {
@@ -19,20 +20,7 @@ namespace Serialize.Linq.Tests.Issues
             var list = new [] { "one", "two" };
             Expression<Func<Test, bool>> expression = test => list.Contains(test.Code);
 
-            var serializer = new ExpressionSerializer(new JsonSerializer());
-            var value = serializer.SerializeText(expression);
-
-            Assert.NotNull(value);
-        }
-
-        [Fact]
-        public void SerializeArrayAsBinary()
-        {
-            var list = new[] { "one", "two" };
-            Expression<Func<Test, bool>> expression = test => list.Contains(test.Code);
-
-            var serializer = new ExpressionSerializer(new BinarySerializer());
-            var value = serializer.SerializeBinary(expression);
+            var value = Json.Serialize(expression);
 
             Assert.NotNull(value);
         }
@@ -43,26 +31,7 @@ namespace Serialize.Linq.Tests.Issues
             var list = new List<string> { "one", "two" };
             Expression<Func<Test, bool>> expression = test => list.Contains(test.Code);
 
-            var serializer = new ExpressionSerializer(new JsonSerializer())
-            {
-                AutoAddKnownTypesAsListTypes = true
-            };
-            var value = serializer.SerializeText(expression);
-
-            Assert.NotNull(value);
-        }
-
-        [Fact]
-        public void SerializeListAsBinary()
-        {
-            var list = new List<string> { "one", "two" };
-            Expression<Func<Test, bool>> expression = test => list.Contains(test.Code);
-
-            var serializer = new ExpressionSerializer(new BinarySerializer())
-            {
-                AutoAddKnownTypesAsListTypes = true
-            };
-            var value = serializer.SerializeBinary(expression);
+            var value = Json.Serialize(expression);
 
             Assert.NotNull(value);
         }
@@ -73,29 +42,11 @@ namespace Serialize.Linq.Tests.Issues
             var list = new[] { "one", "two" };
             Expression<Func<Test, bool>> expression = test => list.Contains(test.Code);
 
-            var serializer = new ExpressionSerializer(new JsonSerializer());
-            var value = serializer.SerializeText(expression);
+            var text = Json.Serialize(expression);
 
-            var actualExpression = (Expression<Func<Test, bool>>)serializer.DeserializeText(value);
+            var actualExpression = (Expression<Func<Test, bool>>)Json.Deserialize(text);
             var func = actualExpression.Compile();
 
-
-            Assert.True(func(new Test { Code = "one" }), "one failed.");
-            Assert.True(func(new Test { Code = "two" }), "two failed.");
-            Assert.False(func(new Test { Code = "three" }), "three failed.");
-        }
-
-        [Fact]
-        public void SerializeDeserializeArrayAsBinary()
-        {
-            var list = new[] { "one", "two" };
-            Expression<Func<Test, bool>> expression = test => list.Contains(test.Code);
-
-            var serializer = new ExpressionSerializer(new BinarySerializer());
-            var value = serializer.SerializeBinary(expression);
-
-            var actualExpression = (Expression<Func<Test, bool>>)serializer.DeserializeBinary(value);
-            var func = actualExpression.Compile();
 
             Assert.True(func(new Test { Code = "one" }), "one failed.");
             Assert.True(func(new Test { Code = "two" }), "two failed.");

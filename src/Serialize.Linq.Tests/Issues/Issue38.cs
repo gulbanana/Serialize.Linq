@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Serializers;
 
 namespace Serialize.Linq.Tests.Issues
 {
-    
+
     public class Issue38
     {
         [Fact]
@@ -17,8 +16,7 @@ namespace Serialize.Linq.Tests.Issues
 
             Expression<Func<Document, bool>> pred = x => x.Orders.AsQueryable().Any(predicate);
 
-            var serializer = new ExpressionSerializer(new BinarySerializer());
-            var value = serializer.SerializeBinary(pred);
+            var value = Json.Serialize(pred);
 
             Assert.NotNull(value);
         }
@@ -30,10 +28,9 @@ namespace Serialize.Linq.Tests.Issues
 
             Expression<Func<Document, bool>> pred = x => x.Orders.AsQueryable().Any(predicate);
 
-            var serializer = new ExpressionSerializer(new BinarySerializer());
-            var value = serializer.SerializeBinary(pred);
+            var text = Json.Serialize(pred);
 
-            var expression = serializer.DeserializeBinary(value);
+            var expression = Json.Deserialize(text);
             Assert.NotNull(expression);
         }
 

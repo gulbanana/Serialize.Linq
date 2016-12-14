@@ -14,8 +14,8 @@ namespace Serialize.Linq.Tests.Issues
     {
         private class DataPoint
         {
-            public DateTime Timestamp;
-            public int AcctId;
+            public DateTime Timestamp = default(DateTime);
+            public int AcctId = default(int);
         }
 
         [Fact]

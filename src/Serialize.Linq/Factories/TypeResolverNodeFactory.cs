@@ -139,7 +139,6 @@ namespace Serialize.Linq.Factories
         {
             inlineExpression = null;
 
-
             if (!(memberExpression.Member is FieldInfo))
                 return false;
 

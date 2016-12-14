@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Serialize.Linq.Tests.Internals;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Serialize.Linq.Interfaces;
-using Serialize.Linq.Serializers;
-using Serialize.Linq.Tests.Internals;
 using Xunit;
 
 namespace Serialize.Linq.Tests.Issues
@@ -40,26 +38,22 @@ namespace Serialize.Linq.Tests.Issues
         [Fact]
         public void SerializeLambdaWithNullableTest()
         {
-            foreach (var textSerializer in new ITextSerializer[] { new JsonSerializer(), new XmlSerializer() })
+            var fish = new[]
             {
-                var serializer = new ExpressionSerializer(textSerializer);
-                var fish = new[]
-                {
-                    new Fish {Count = 0},
-                    new Fish {Count = 1},
-                    new Fish(),
-                    new Fish {Count = 1}
-                };
-                int? count = 1;
-                Expression<Func<Fish, bool>> expectedExpression = f => f.Count == count;
-                var expected = fish.Where(expectedExpression.Compile()).Count();
+                new Fish {Count = 0},
+                new Fish {Count = 1},
+                new Fish(),
+                new Fish {Count = 1}
+            };
+            int? count = 1;
+            Expression<Func<Fish, bool>> expectedExpression = f => f.Count == count;
+            var expected = fish.Where(expectedExpression.Compile()).Count();
 
-                var serialized = serializer.SerializeText(expectedExpression);
-                var actualExpression = (Expression<Func<Fish, bool>>)serializer.DeserializeText(serialized);
-                var actual = fish.Where(actualExpression.Compile()).Count();
+            var serialized = Json.Serialize(expectedExpression);
+            var actualExpression = (Expression<Func<Fish, bool>>)(Json.Deserialize(serialized));
+            var actual = fish.Where(actualExpression.Compile()).Count();
 
-                Assert.Equal(expected, actual);
-            }
+            Assert.Equal(expected, actual);
         }
     }
 }

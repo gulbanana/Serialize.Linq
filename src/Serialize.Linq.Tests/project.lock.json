@@ -2739,6 +2739,7 @@
           "Microsoft.CSharp": "4.3.0",
           "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
           "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1",
           "System.Collections": "4.3.0",
           "System.Collections.Concurrent": "4.3.0",
           "System.Linq": "4.3.0",
@@ -3145,6 +3146,9 @@
       "Serialize.Linq/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1"
+        },
         "frameworkAssemblies": [
           "System.Runtime.Serialization",
           "System.Xml"

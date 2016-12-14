@@ -2,63 +2,53 @@
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Interfaces;
-using Serialize.Linq.Serializers;
 
 namespace Serialize.Linq.Tests.Issues
 {
     // https://github.com/esskar/Serialize.Linq/issues/34
-    
+
     public class Issue34
     {
         [Fact]
         public void SerializeWithDateTimeUtcTest()
         {
-            foreach (var textSerializer in new ITextSerializer[] { new JsonSerializer(), new XmlSerializer() })
+            var yarrs = new[]
             {
-                var serializer = new ExpressionSerializer(textSerializer);
-                var yarrs = new[]
-                {
-                    new Yarr {Date = new DateTime(3000,1,1)},
-                    new Yarr {Date = new DateTime(2000,1,1)},
-                    new Yarr(),
-                    new Yarr { Date = DateTime.Now.AddYears(1) }
-                };
-                var date = DateTime.UtcNow;
-                Expression<Func<Yarr, bool>> expectedExpression = f => f.Date > date;
-                var expected = yarrs.Where(expectedExpression.Compile()).Count();
+                new Yarr {Date = new DateTime(3000,1,1)},
+                new Yarr {Date = new DateTime(2000,1,1)},
+                new Yarr(),
+                new Yarr { Date = DateTime.Now.AddYears(1) }
+            };
+            var date = DateTime.UtcNow;
+            Expression<Func<Yarr, bool>> expectedExpression = f => f.Date > date;
+            var expected = yarrs.Where(expectedExpression.Compile()).Count();
 
-                var serialized = serializer.SerializeText(expectedExpression);
-                var actualExpression = (Expression<Func<Yarr, bool>>)serializer.DeserializeText(serialized);
-                var actual = yarrs.Where(actualExpression.Compile()).Count();
+            var serialized = Json.Serialize(expectedExpression);
+            var actualExpression = (Expression<Func<Yarr, bool>>)(Json.Deserialize(serialized));
+            var actual = yarrs.Where(actualExpression.Compile()).Count();
 
-                Assert.Equal(expected, actual);
-            }
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void SerializeWithDateTimeLocalTest()
         {
-            foreach (var textSerializer in new ITextSerializer[] { new JsonSerializer(), new XmlSerializer() })
+            var yarrs = new[]
             {
-                var serializer = new ExpressionSerializer(textSerializer);
-                var yarrs = new[]
-                {
-                    new Yarr {Date = new DateTime(3000,1,1)},
-                    new Yarr {Date = new DateTime(2000,1,1)},
-                    new Yarr(),
-                    new Yarr { Date = DateTime.Now.AddYears(1) }
-                };
-                var date = DateTime.Now;
-                Expression<Func<Yarr, bool>> expectedExpression = f => f.Date > date;
-                var expected = yarrs.Where(expectedExpression.Compile()).Count();
+                new Yarr {Date = new DateTime(3000,1,1)},
+                new Yarr {Date = new DateTime(2000,1,1)},
+                new Yarr(),
+                new Yarr { Date = DateTime.Now.AddYears(1) }
+            };
+            var date = DateTime.Now;
+            Expression<Func<Yarr, bool>> expectedExpression = f => f.Date > date;
+            var expected = yarrs.Where(expectedExpression.Compile()).Count();
 
-                var serialized = serializer.SerializeText(expectedExpression);
-                var actualExpression = (Expression<Func<Yarr, bool>>)serializer.DeserializeText(serialized);
-                var actual = yarrs.Where(actualExpression.Compile()).Count();
+            var serialized = Json.Serialize(expectedExpression);
+            var actualExpression = (Expression<Func<Yarr, bool>>)(Json.Deserialize(serialized));
+            var actual = yarrs.Where(actualExpression.Compile()).Count();
 
-                Assert.Equal(expected, actual);
-            }
+            Assert.Equal(expected, actual);
         }
 
         public class Yarr

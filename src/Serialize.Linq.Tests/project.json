@@ -8,7 +8,6 @@
     }
   },
   "frameworks": {
-    "net452": {},
     "netcoreapp1.0": {
       "dependencies": {
         "Microsoft.NETCore.App": {
@@ -17,7 +16,8 @@
         },
         "System.Runtime": "4.3.0"
       }
-    }
+    },
+    "net452": {}
   },
   "testRunner": "xunit"
 }

@@ -16,6 +16,7 @@ using Serialize.Linq.Factories;
 using Serialize.Linq.Interfaces;
 using Serialize.Linq.Nodes;
 using Serialize.Linq.Tests.Internals;
+using System.Linq;
 
 namespace Serialize.Linq.Tests
 {
@@ -94,7 +95,7 @@ namespace Serialize.Linq.Tests
         [Fact]
         public void ToExpressionNodeTest()
         {
-            AssertToExpressionNode(SerializerTestData.TestExpressions);
+            AssertToExpressionNode(SerializerTestData.TestExpressions.Select(array => array.Single() as Expression));
             AssertToExpressionNode(SerializerTestData.TestNodesOnlyExpressions);
         }
 

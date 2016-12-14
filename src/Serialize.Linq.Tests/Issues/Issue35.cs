@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Serialize.Linq.Tests.Internals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Interfaces;
-using Serialize.Linq.Serializers;
-using Serialize.Linq.Tests.Internals;
 
 namespace Serialize.Linq.Tests.Issues
 {
     // https://github.com/esskar/Serialize.Linq/issues/35
-    
+
     public class Issue35
     {
         [Fact]
@@ -32,16 +30,12 @@ namespace Serialize.Linq.Tests.Issues
                 select x;
             expressions.Add(strExpr);            
 
-            foreach (var textSerializer in new ITextSerializer[] { new JsonSerializer(), new XmlSerializer() })
+            foreach (var expected in expressions)
             {
-                var serializer = new ExpressionSerializer(textSerializer);
-                foreach (var expected in expressions)
-                {
-                    var serialized = serializer.SerializeText(expected);
-                    var actual = serializer.DeserializeText(serialized);
+                var serialized = Json.Serialize(expected);
+                var actual = Json.Deserialize(serialized);
 
-                    ExpressionAssert.AreEqual(expected, actual);
-                }
+                ExpressionAssert.AreEqual(expected, actual);
             }
         }
     }

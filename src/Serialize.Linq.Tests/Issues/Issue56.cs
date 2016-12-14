@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Serializers;
 
 namespace Serialize.Linq.Tests.Issues
 {
     /// <summary>
     /// https://github.com/esskar/Serialize.Linq/issues/56
     /// </summary>
-    
+
     public class Issue56
     {
         [Fact]
@@ -22,11 +21,7 @@ namespace Serialize.Linq.Tests.Issues
                     (groupType =>
                         enterpriseKeys.Contains(groupType.GroupEnterpriseKey));
 
-            var serializeTo = new ExpressionSerializer(new XmlSerializer())
-            {
-                AutoAddKnownTypesAsListTypes = true
-            };
-            var predicatePartSerializedToString = serializeTo.SerializeText(predicatePart);
+            var predicatePartSerializedToString = Json.Serialize(predicatePart);
 
             Assert.NotNull(predicatePartSerializedToString);
         }
@@ -41,11 +36,7 @@ namespace Serialize.Linq.Tests.Issues
                     (groupType =>
                         enterpriseKeys.Contains(groupType.GroupEnterpriseKey));
 
-            var serializeTo = new ExpressionSerializer(new XmlSerializer())
-            {
-                AutoAddKnownTypesAsListTypes = true
-            };
-            var predicatePartSerializedToString = serializeTo.SerializeText(predicatePart);
+            var predicatePartSerializedToString = Json.Serialize(predicatePart);
 
             Assert.NotNull(predicatePartSerializedToString);
         }
