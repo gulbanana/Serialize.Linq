@@ -28,9 +28,6 @@ namespace Serialize.Linq.Nodes
         [DataContract(Name = "PI")]
     #endif
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class PropertyInfoNode : MemberNode<PropertyInfo>
     {

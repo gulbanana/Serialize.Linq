@@ -12,15 +12,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    #region DataContract
     [DataContract]
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
-    #region KnownTypes
     [KnownType(typeof(BinaryExpressionNode))]
     [KnownType(typeof(ConditionalExpressionNode))]
     [KnownType(typeof(ConstantExpressionNode))]
@@ -50,8 +42,6 @@ namespace Serialize.Linq.Nodes
     [KnownType(typeof(TypeBinaryExpressionNode))]
     [KnownType(typeof(TypeNode))]
     [KnownType(typeof(UnaryExpressionNode))]
-    #endregion
-    #endregion
     public abstract class Node
     {
         /// <summary>
@@ -79,9 +69,6 @@ namespace Serialize.Linq.Nodes
         /// The factory.
         /// </value>
         [IgnoreDataMember]
-#if !(NETSTANDARD1_5)
-        [NonSerialized]
-#endif
         public readonly INodeFactory Factory;        
     }
 }

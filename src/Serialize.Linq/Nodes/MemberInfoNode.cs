@@ -20,9 +20,6 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "MI")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class MemberInfoNode : MemberNode<MemberInfo>
     {

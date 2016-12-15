@@ -19,9 +19,6 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "LI")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class ListInitExpressionNode : ExpressionNode<ListInitExpression>
     {

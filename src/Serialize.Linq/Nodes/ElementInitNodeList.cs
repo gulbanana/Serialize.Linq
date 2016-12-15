@@ -21,9 +21,6 @@ namespace Serialize.Linq.Nodes
 #else
     [CollectionDataContract(Name = "EIL")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class ElementInitNodeList : List<ElementInitNode>
     {

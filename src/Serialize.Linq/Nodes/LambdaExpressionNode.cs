@@ -23,9 +23,6 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "L")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class LambdaExpressionNode : ExpressionNode<LambdaExpression>
     {

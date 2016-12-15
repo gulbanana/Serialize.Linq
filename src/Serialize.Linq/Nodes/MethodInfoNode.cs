@@ -21,9 +21,6 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "MIN")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class MethodInfoNode : MemberNode<MethodInfo>
     {

@@ -19,9 +19,6 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "U")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class UnaryExpressionNode : ExpressionNode<UnaryExpression>
     {

@@ -19,10 +19,6 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "TB")]   
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
-
     #endregion
     public class TypeBinaryExpressionNode : ExpressionNode<TypeBinaryExpression>
     {

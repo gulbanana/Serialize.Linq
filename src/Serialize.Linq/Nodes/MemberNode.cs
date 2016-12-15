@@ -25,9 +25,6 @@ namespace Serialize.Linq.Nodes
 #else
     [DataContract(Name = "MN")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public abstract class MemberNode<TMemberInfo> : Node where TMemberInfo : MemberInfo
     {

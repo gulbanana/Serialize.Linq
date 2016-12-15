@@ -21,9 +21,6 @@ namespace Serialize.Linq.Nodes
 #else
     [CollectionDataContract(Name = "MIL")]
 #endif
-#if !(NETSTANDARD1_5)
-    [Serializable]
-#endif
     #endregion
     public class MemberInfoNodeList : List<MemberInfoNode>
     {
