@@ -24,12 +24,11 @@ namespace Serialize.Linq.Internals
             if (parameterTypes != null)
             {
                 var expectedTypes = new HashSet<Type>();
-                var typeFinder = new ComplexPropertyMemberTypeFinder();
 
                 foreach (var type in parameterTypes)
                 {
                     if (type == null) throw new ArgumentOutOfRangeException("types");
-                    expectedTypes.UnionWith(typeFinder.FindTypes(type));
+                    expectedTypes.UnionWith(MemberTypeFinder.FindTypes(type));
                 }
 
                 _expectedTypes = expectedTypes.ToArray();

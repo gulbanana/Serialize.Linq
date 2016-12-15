@@ -15,192 +15,34 @@ namespace Serialize.Linq.Internals
 {
     public class MemberTypeEnumerator : IEnumerator<Type>
     {
+        private static readonly Type[] _builtinTypes = new[]
+        {
+            typeof(bool), typeof(byte), typeof(sbyte), typeof(char), typeof(decimal), typeof(double), typeof(float), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(short), typeof(ushort),
+            typeof(object), typeof(string),
+            typeof(Guid), typeof(Int16),typeof(Int32),typeof(Int64), typeof(UInt16), typeof(UInt32), typeof(UInt64), typeof(TimeSpan), typeof(DateTime)
+        };
+
         private int _currentIndex;
         private readonly Type _type;
         private readonly BindingFlags _bindingFlags;
         private readonly HashSet<Type> _seenTypes;
         private Type[] _allTypes;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MemberTypeEnumerator"/> class.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="bindingFlags">The binding flags.</param>
-        //public MemberTypeEnumerator(Type type, BindingFlags bindingFlags = BindingFlags.Default)
-        //    : this(new HashSet<Type>(), type, bindingFlags) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MemberTypeEnumerator"/> class.
-        /// </summary>
-        /// <param name="seenTypes">The seen types.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="bindingFlags">The binding flags.</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// seenTypes
-        /// or
-        /// type
-        /// </exception>
-        public MemberTypeEnumerator(HashSet<Type> seenTypes, Type type, BindingFlags bindingFlags)
+        public MemberTypeEnumerator(Type type, BindingFlags bindingFlags)
         {
-            if (seenTypes == null)
-                throw new ArgumentNullException("seenTypes");
-            if (type == null)
-                throw new ArgumentNullException("type");
+            if (type == null) throw new ArgumentNullException("type");
 
-            _seenTypes = seenTypes;
+            _seenTypes = new HashSet<Type>();
             _type = type;
             _bindingFlags = bindingFlags;
-
             _currentIndex = -1;
         }
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is considered.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is considered; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsConsidered
+        public bool MoveNext()
         {
-            get { return IsConsideredType(_type); }
-        }
+            if (!IsConsidered) return false;
 
-        /// <summary>
-        /// Determines whether [is considered type] [the specified type].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is considered type] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        protected virtual bool IsConsideredType(Type type)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Determines whether [is considered member] [the specified member].
-        /// </summary>
-        /// <param name="member">The member.</param>
-        /// <returns>
-        ///   <c>true</c> if [is considered member] [the specified member]; otherwise, <c>false</c>.
-        /// </returns>
-        protected virtual bool IsConsideredMember(MemberInfo member)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Determines whether [is seen type] [the specified type].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is seen type] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        protected bool IsSeenType(Type type)
-        {
-            return _seenTypes.Contains(type);
-        }
-
-        /// <summary>
-        /// Adds the type of the seen.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        protected void AddSeenType(Type type)
-        {
-            _seenTypes.Add(type);
-        }
-
-        /// <summary>
-        /// Gets the current.
-        /// </summary>
-        /// <value>
-        /// The current.
-        /// </value>
-        public virtual Type Current
-        {
-            get { return _allTypes[_currentIndex]; }
-        }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose() { }
-
-        /// <summary>
-        /// Gets the current.
-        /// </summary>
-        /// <value>
-        /// The current.
-        /// </value>
-        object System.Collections.IEnumerator.Current
-        {
-            get { return Current; }
-        }
-
-        /// <summary>
-        /// Gets the type of the types of.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
-        protected Type[] GetTypesOfType(Type type)
-        {
-            var types = new List<Type> { type };
-            if (type.HasElementType)
-                types.AddRange(GetTypesOfType(type.GetElementType()));
-
-            if (type.GetTypeInfo().IsGenericType)
-            {
-                foreach (var genericType in type.GetGenericArguments())
-                    types.AddRange(GetTypesOfType(genericType));
-
-            }
-            return types.ToArray();
-        }
-
-        /// <summary>
-        /// Builds the types.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual Type[] BuildTypes()
-        {
-            var types = new List<Type>();
-            var members = _type.GetMembers(_bindingFlags);
-            foreach (var memberInfo in members.Where(IsConsideredMember))
-                types.AddRange(GetTypesOfType(GetMemberType(memberInfo)));
-            return types.ToArray();
-        }
-
-        // https://github.com/dotnet/corefx/issues/4670
-        public static Type GetMemberType(MemberInfo member)
-        {
-            PropertyInfo property = member as PropertyInfo;
-            if (property != null)
-                return property.PropertyType;
-
-            MethodInfo method = member as MethodInfo;
-            if (method != null)
-                return method.ReturnType;
-
-            FieldInfo field = member as FieldInfo;
-            if (field != null)
-                return field.FieldType;
-
-            throw new NotSupportedException("Unable to get return type of MemberInfo of type " + member);
-        }
-
-        /// <summary>
-        /// Advances the enumerator to the next element of the collection.
-        /// </summary>
-        /// <returns>
-        /// true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.
-        /// </returns>
-        public virtual bool MoveNext()
-        {
-            if (!IsConsidered)
-                return false;
-
-            if (_allTypes == null)
-                _allTypes = BuildTypes();
+            if (_allTypes == null) _allTypes = BuildTypes();
 
             while (++_currentIndex < _allTypes.Length)
             {
@@ -212,12 +54,66 @@ namespace Serialize.Linq.Internals
             return _currentIndex < _allTypes.Length;
         }
 
-        /// <summary>
-        /// Sets the enumerator to its initial position, which is before the first element in the collection.
-        /// </summary>
-        public void Reset()
+        public void Reset() => _currentIndex = -1;
+
+        public bool IsConsidered => IsConsideredType(_type);
+
+        private bool IsConsideredType(Type type) => !_builtinTypes.Contains(type);
+
+        private bool IsConsideredMember(MemberInfo member) => member is PropertyInfo;
+
+        private bool IsSeenType(Type type) => _seenTypes.Contains(type);
+
+        private void AddSeenType(Type type) => _seenTypes.Add(type);
+
+        public Type Current => _allTypes[_currentIndex]; 
+
+        object System.Collections.IEnumerator.Current => Current;
+
+        private Type[] BuildTypes()
         {
-            _currentIndex = -1;
+            var types = new List<Type>();
+            var members = _type.GetMembers(_bindingFlags);
+
+            foreach (var memberInfo in members.Where(IsConsideredMember))
+            {
+                types.AddRange(GetRelatedTypes(GetMemberType(memberInfo)));
+            }
+
+            return types.ToArray();
         }
+
+        private Type[] GetRelatedTypes(Type type)
+        {
+            var types = new List<Type> { type };
+            if (type.HasElementType) types.AddRange(GetRelatedTypes(type.GetElementType()));
+
+            if (type.GetTypeInfo().IsGenericType)
+            {
+                foreach (var genericType in type.GetGenericArguments())
+                {
+                    types.AddRange(GetRelatedTypes(genericType));
+                }
+            }
+
+            return types.ToArray();
+        }
+
+        // https://github.com/dotnet/corefx/issues/4670
+        public static Type GetMemberType(MemberInfo member)
+        {
+            PropertyInfo property = member as PropertyInfo;
+            if (property != null) return property.PropertyType;
+
+            MethodInfo method = member as MethodInfo;
+            if (method != null) return method.ReturnType;
+
+            FieldInfo field = member as FieldInfo;
+            if (field != null) return field.FieldType;
+
+            throw new NotSupportedException("Unable to get return type of MemberInfo of type " + member);
+        }
+
+        public void Dispose() { }
     }
 }
