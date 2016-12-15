@@ -18,6 +18,13 @@ namespace Serialize.Linq.Nodes
     [DataContract(Name = "T")]
     public class TypeNode : Node
     {
+        private static string[] _coreLibs = new[]
+        {
+            "mscorlib",
+            "System.Private.CoreLib",
+            "Serialize.Linq"
+        };
+
         public TypeNode() { }
 
         public TypeNode(NodeContext factory, Type type)
@@ -43,27 +50,22 @@ namespace Serialize.Linq.Nodes
                 GenericArguments = type.GetGenericArguments().Select(t => new TypeNode(Context, t)).ToArray();
 
                 var typeDefinition = type.GetGenericTypeDefinition();
-                if (isAnonymousType)
+                if (isAnonymousType || !_coreLibs.Contains(typeDefinition.GetTypeInfo().Assembly.GetName().Name))
                     Name = typeDefinition.AssemblyQualifiedName;
                 else
                     Name = typeDefinition.FullName;
-                AssemblyQualifiedName = typeDefinition.AssemblyQualifiedName;
             }
             else
             {
-                if (isAnonymousType)
+                if (isAnonymousType || !_coreLibs.Contains(type.GetTypeInfo().Assembly.GetName().Name))
                     Name = type.AssemblyQualifiedName;
                 else
                     Name = type.FullName;
-                AssemblyQualifiedName = type.AssemblyQualifiedName;
             }
         }
 
         [DataMember(EmitDefaultValue = false, Name = "N")]        
         public string Name { get; set; }
-
-        [DataMember(EmitDefaultValue = false, Name = "Q")]
-        public string AssemblyQualifiedName { get; set; }
 
         [DataMember(EmitDefaultValue = false, Name = "G")]        
         public TypeNode[] GenericArguments { get; set; }

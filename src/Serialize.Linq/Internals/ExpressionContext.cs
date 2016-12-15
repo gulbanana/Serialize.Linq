@@ -36,17 +36,19 @@ namespace Serialize.Linq.Internals
         {
             if (node == null) throw new ArgumentNullException("node");
 
-            if (string.IsNullOrWhiteSpace(node.AssemblyQualifiedName)) return null;
+            if (string.IsNullOrWhiteSpace(node.Name)) return null;
 
-            return _typeCache.GetOrAdd(node.AssemblyQualifiedName, n =>
+            return _typeCache.GetOrAdd(node.Name, ResolveTypeByName);
+        }
+
+        private static Type ResolveTypeByName(string name)
+        {
+            var type = Type.GetType(name);
+            if (type == null)
             {
-                var type = Type.GetType(n);
-                if (type == null)
-                {
-                    throw new Exception($"Type {node.AssemblyQualifiedName} not available in current app domain");
-                }
-                return type;
-            });
+                throw new Exception($"Type {name} not available in current app domain");
+            }
+            return type;
         }
     }
 }
