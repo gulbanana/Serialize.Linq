@@ -11,7 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -20,7 +20,7 @@ namespace Serialize.Linq.Nodes
     {
         public TypeNode() { }
 
-        public TypeNode(INodeFactory factory, Type type)
+        public TypeNode(NodeContext factory, Type type)
             : base(factory)
         {
             Initialize(type);
@@ -40,10 +40,10 @@ namespace Serialize.Linq.Nodes
 
             if (type.GetTypeInfo().IsGenericType)
             {
-                GenericArguments = type.GetGenericArguments().Select(t => new TypeNode(Factory, t)).ToArray();
+                GenericArguments = type.GetGenericArguments().Select(t => new TypeNode(Context, t)).ToArray();
 
                 var typeDefinition = type.GetGenericTypeDefinition();
-                if (isAnonymousType || !Factory.Settings.UseRelaxedTypeNames)
+                if (isAnonymousType)
                     Name = typeDefinition.AssemblyQualifiedName;
                 else
                     Name = typeDefinition.FullName;
@@ -51,7 +51,7 @@ namespace Serialize.Linq.Nodes
             }
             else
             {
-                if (isAnonymousType || !Factory.Settings.UseRelaxedTypeNames)
+                if (isAnonymousType)
                     Name = type.AssemblyQualifiedName;
                 else
                     Name = type.FullName;

@@ -6,13 +6,12 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Nodes;
 using System;
-using System.Reflection;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
-using Serialize.Linq.Nodes;
 
-namespace Serialize.Linq
+namespace Serialize.Linq.Internals
 {
     public class ExpressionContext
     {
@@ -25,31 +24,19 @@ namespace Serialize.Linq
             _typeCache = new ConcurrentDictionary<string, Type>();
         }
 
-        public bool AllowPrivateFieldAccess { get; set; }
-
-        public virtual BindingFlags? GetBindingFlags()
-        {
-            if (!AllowPrivateFieldAccess)
-                return null;
-
-            return BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-        }
-
         public virtual ParameterExpression GetParameterExpression(ParameterExpressionNode node)
         {
-            if(node == null)
-                throw new ArgumentNullException("node");
+            if(node == null) throw new ArgumentNullException("node");
+
             var key = node.Type.Name + Environment.NewLine + node.Name;
             return _parameterExpressions.GetOrAdd(key, k => Expression.Parameter(node.Type.ToType(this), node.Name));
         }
 
         public virtual Type ResolveType(TypeNode node)
         {
-            if (node == null)
-                throw new ArgumentNullException("node");
+            if (node == null) throw new ArgumentNullException("node");
 
-            if (string.IsNullOrWhiteSpace(node.AssemblyQualifiedName))
-                return null;
+            if (string.IsNullOrWhiteSpace(node.AssemblyQualifiedName)) return null;
 
             return _typeCache.GetOrAdd(node.AssemblyQualifiedName, n =>
             {

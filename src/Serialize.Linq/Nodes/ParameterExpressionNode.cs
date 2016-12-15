@@ -8,7 +8,7 @@
 
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -17,7 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public ParameterExpressionNode() { }
 
-        public ParameterExpressionNode(INodeFactory factory, ParameterExpression expression)
+        public ParameterExpressionNode(NodeContext factory, ParameterExpression expression)
             : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "I")]

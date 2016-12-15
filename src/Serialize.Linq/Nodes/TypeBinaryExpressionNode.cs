@@ -9,7 +9,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -18,7 +18,7 @@ namespace Serialize.Linq.Nodes
     {
         public TypeBinaryExpressionNode() { }
 
-        public TypeBinaryExpressionNode(INodeFactory factory, TypeBinaryExpression expression)
+        public TypeBinaryExpressionNode(NodeContext factory, TypeBinaryExpression expression)
             : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "E")]
@@ -29,8 +29,8 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(TypeBinaryExpression expression)
         {
-            Expression = Factory.Create(expression.Expression);
-            TypeOperand = Factory.Create(expression.TypeOperand);
+            Expression = Context.Create(expression.Expression);
+            TypeOperand = new TypeNode(Context, expression.TypeOperand);
         }
 
         public override Expression ToExpression(ExpressionContext context)

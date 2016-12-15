@@ -9,7 +9,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System.Collections.Generic;
 
 namespace Serialize.Linq.Nodes
@@ -19,7 +19,7 @@ namespace Serialize.Linq.Nodes
     {
         public LambdaExpressionNode() { }
 
-        public LambdaExpressionNode(INodeFactory factory, LambdaExpression expression)
+        public LambdaExpressionNode(NodeContext factory, LambdaExpression expression)
             : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "B")]
@@ -30,8 +30,8 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(LambdaExpression expression)
         {
-            Parameters = new ExpressionNodeList(Factory, expression.Parameters);
-            Body = Factory.Create(expression.Body);
+            Parameters = new ExpressionNodeList(Context, expression.Parameters);
+            Body = Context.Create(expression.Body);
         }
 
         public override Expression ToExpression(ExpressionContext context)

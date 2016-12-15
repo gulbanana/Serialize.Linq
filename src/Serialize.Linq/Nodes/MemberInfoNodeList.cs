@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -20,7 +20,7 @@ namespace Serialize.Linq.Nodes
     {
         public MemberInfoNodeList() { }
 
-        public MemberInfoNodeList(INodeFactory factory, IEnumerable<MemberInfo> items = null)
+        public MemberInfoNodeList(NodeContext factory, IEnumerable<MemberInfo> items = null)
         {
             if (factory == null)
                 throw new ArgumentNullException("factory");

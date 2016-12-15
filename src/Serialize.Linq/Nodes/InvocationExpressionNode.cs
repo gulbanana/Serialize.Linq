@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
@@ -17,7 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public InvocationExpressionNode() { }
 
-        public InvocationExpressionNode(INodeFactory factory, InvocationExpression expression)
+        public InvocationExpressionNode(NodeContext factory, InvocationExpression expression)
             : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "A")]
@@ -28,8 +28,8 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(InvocationExpression expression)
         {
-            Arguments = new ExpressionNodeList(Factory, expression.Arguments);
-            Expression = Factory.Create(expression.Expression);
+            Arguments = new ExpressionNodeList(Context, expression.Arguments);
+            Expression = Context.Create(expression.Expression);
         }
 
         public override Expression ToExpression(ExpressionContext context)

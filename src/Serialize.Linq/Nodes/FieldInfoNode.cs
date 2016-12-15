@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -19,7 +19,7 @@ namespace Serialize.Linq.Nodes
     {
         public FieldInfoNode() { }
 
-        public FieldInfoNode(INodeFactory factory, FieldInfo memberInfo)
+        public FieldInfoNode(NodeContext factory, FieldInfo memberInfo)
             : base(factory, memberInfo) { }
 
         protected override IEnumerable<FieldInfo> GetMemberInfosForType(ExpressionContext context, Type type)

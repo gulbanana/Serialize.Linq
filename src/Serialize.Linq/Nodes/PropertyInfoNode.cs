@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -19,7 +19,7 @@ namespace Serialize.Linq.Nodes
     {
         public PropertyInfoNode() { }
 
-        public PropertyInfoNode(INodeFactory factory, PropertyInfo memberInfo) 
+        public PropertyInfoNode(NodeContext factory, PropertyInfo memberInfo) 
             : base(factory, memberInfo) { }
 
         protected override IEnumerable<PropertyInfo> GetMemberInfosForType(ExpressionContext context, Type type)

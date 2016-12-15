@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -20,7 +20,7 @@ namespace Serialize.Linq.Nodes
     {
         public MethodInfoNode() { }
 
-        public MethodInfoNode(INodeFactory factory, MethodInfo memberInfo)
+        public MethodInfoNode(NodeContext factory, MethodInfo memberInfo)
             : base(factory, memberInfo) { }
 
         protected override IEnumerable<MethodInfo> GetMemberInfosForType(ExpressionContext context, Type type)
@@ -42,7 +42,7 @@ namespace Serialize.Linq.Nodes
 
             IsGenericMethod = true;
             Signature = memberInfo.GetGenericMethodDefinition().ToString();
-            GenericArguments = memberInfo.GetGenericArguments().Select(a => Factory.Create(a)).ToArray();
+            GenericArguments = memberInfo.GetGenericArguments().Select(a => new TypeNode(Context, a)).ToArray();
         }
 
         public override MethodInfo ToMemberInfo(ExpressionContext context)

@@ -8,7 +8,7 @@
 
 using System;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -44,31 +44,15 @@ namespace Serialize.Linq.Nodes
     [KnownType(typeof(UnaryExpressionNode))]
     public abstract class Node
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Node"/> class.
-        /// </summary>
         protected Node() { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Node"/> class.
-        /// </summary>
-        /// <param name="factory">The factory.</param>
-        /// <exception cref="System.ArgumentNullException">factory</exception>
-        protected Node(INodeFactory factory)
+        protected Node(NodeContext context)
         {
-            if(factory == null)
-                throw new ArgumentNullException("factory");
-
-            Factory = factory;
+            if(context == null) throw new ArgumentNullException("context");
+            Context = context;
         }
 
-        /// <summary>
-        /// Gets the factory.
-        /// </summary>
-        /// <value>
-        /// The factory.
-        /// </value>
         [IgnoreDataMember]
-        public readonly INodeFactory Factory;        
+        public readonly NodeContext Context;        
     }
 }

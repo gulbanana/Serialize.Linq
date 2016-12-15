@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
@@ -17,10 +17,10 @@ namespace Serialize.Linq.Nodes
     {
         public MemberAssignmentNode() { }
 
-        public MemberAssignmentNode(INodeFactory factory, MemberAssignment memberAssignment)
+        public MemberAssignmentNode(NodeContext factory, MemberAssignment memberAssignment)
             : base(factory, memberAssignment.BindingType, memberAssignment.Member)
         {
-            Expression = Factory.Create(memberAssignment.Expression);
+            Expression = Context.Create(memberAssignment.Expression);
         }
 
         [DataMember(EmitDefaultValue = false, Name = "E")]

@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Serialize.Linq.Nodes
     {
         public MemberBindingNodeList() { }
 
-        public MemberBindingNodeList(INodeFactory factory, IEnumerable<MemberBinding> items)
+        public MemberBindingNodeList(NodeContext factory, IEnumerable<MemberBinding> items)
         {
             if (factory == null)
                 throw new ArgumentNullException("factory");

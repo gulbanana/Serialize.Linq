@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
@@ -26,7 +26,7 @@ namespace Serialize.Linq.Nodes
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="elementInit">The element init.</param>
-        public ElementInitNode(INodeFactory factory, ElementInit elementInit) : base(factory)
+        public ElementInitNode(NodeContext factory, ElementInit elementInit) : base(factory)
         {
             Initialize(elementInit);
         }
@@ -41,8 +41,8 @@ namespace Serialize.Linq.Nodes
             if (elementInit == null)
                 throw new ArgumentNullException("elementInit");
 
-            AddMethod = new MethodInfoNode(Factory, elementInit.AddMethod);
-            Arguments = new ExpressionNodeList(Factory, elementInit.Arguments);
+            AddMethod = new MethodInfoNode(Context, elementInit.AddMethod);
+            Arguments = new ExpressionNodeList(Context, elementInit.Arguments);
         }
 
         /// <summary>

@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
@@ -25,7 +25,7 @@ namespace Serialize.Linq.Nodes
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="expression">The expression.</param>
-        public BinaryExpressionNode(INodeFactory factory, BinaryExpression expression)
+        public BinaryExpressionNode(NodeContext factory, BinaryExpression expression)
             : base(factory, expression) { }
 
         /// <summary>
@@ -79,10 +79,10 @@ namespace Serialize.Linq.Nodes
         /// <param name="expression">The expression.</param>
         protected override void Initialize(BinaryExpression expression)
         {
-            Left = Factory.Create(expression.Left);
-            Right = Factory.Create(expression.Right);
-            Conversion = Factory.Create(expression.Conversion);
-            Method = new MethodInfoNode(Factory, expression.Method);
+            Left = Context.Create(expression.Left);
+            Right = Context.Create(expression.Right);
+            Conversion = Context.Create(expression.Conversion);
+            Method = new MethodInfoNode(Context, expression.Method);
             IsLiftedToNull = expression.IsLiftedToNull;
         }
 

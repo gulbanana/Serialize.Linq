@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Serialize.Linq.Nodes
     {
         public ElementInitNodeList() { }
 
-        public ElementInitNodeList(INodeFactory factory, IEnumerable<ElementInit> items)
+        public ElementInitNodeList(NodeContext factory, IEnumerable<ElementInit> items)
         {
             if (factory == null)
                 throw new ArgumentNullException("factory");

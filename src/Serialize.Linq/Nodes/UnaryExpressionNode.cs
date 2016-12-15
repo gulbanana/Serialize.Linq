@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
@@ -17,7 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public UnaryExpressionNode() { }
 
-        public UnaryExpressionNode(INodeFactory factory, UnaryExpression expression)
+        public UnaryExpressionNode(NodeContext factory, UnaryExpression expression)
             : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "O")]
@@ -25,7 +25,7 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(UnaryExpression expression)
         {
-            Operand = Factory.Create(expression.Operand);
+            Operand = Context.Create(expression.Operand);
         }
 
         public override Expression ToExpression(ExpressionContext context)

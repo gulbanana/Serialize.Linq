@@ -11,11 +11,9 @@ namespace Serialize.Linq.Tests
             TypeNameHandling = TypeNameHandling.All,       
         };
 
-        private static readonly ExpressionConverter _converter = new ExpressionConverter();
-
         public static string Serialize(Expression expression)
         {
-            var node = _converter.Convert(expression);
+            var node = ExpressionNode.FromExpression(expression);
             return JsonConvert.SerializeObject(node, _settings);
         }
 
@@ -27,7 +25,7 @@ namespace Serialize.Linq.Tests
 
         public static ExpressionNode ToExpressionNode(this Expression expression)
         {
-            return _converter.Convert(expression);
+            return ExpressionNode.FromExpression(expression);
         }
     }
 }

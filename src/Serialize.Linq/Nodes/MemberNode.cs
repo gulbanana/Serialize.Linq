@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace Serialize.Linq.Nodes
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="memberInfo">The member info.</param>
-        protected MemberNode(INodeFactory factory, TMemberInfo memberInfo)
+        protected MemberNode(NodeContext factory, TMemberInfo memberInfo)
             : base(factory)
         {
             if (memberInfo != null)
@@ -59,7 +59,7 @@ namespace Serialize.Linq.Nodes
         /// <param name="memberInfo">The member info.</param>
         protected virtual void Initialize(TMemberInfo memberInfo)
         {
-            DeclaringType = Factory.Create(memberInfo.DeclaringType);
+            DeclaringType = new TypeNode(Context, memberInfo.DeclaringType);
             Signature = memberInfo.ToString();
         }
 

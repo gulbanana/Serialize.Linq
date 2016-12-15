@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using Serialize.Linq.Nodes;
 using Serialize.Linq.Tests.Internals;
 using System;
@@ -120,13 +120,7 @@ namespace Serialize.Linq.Tests
 
         private void AssertExpression(Expression expression, string message = null)
         {
-            this.AssertExpression<NodeFactory>(expression, message);
-        }
-
-        private void AssertExpression<TFactory>(Expression expression, string message = null)
-            where TFactory : INodeFactory
-        {
-            var factory = (TFactory)Activator.CreateInstance(typeof(TFactory));
+            var factory = new NodeContext();
             var expressionNode = factory.Create(expression);
             var createdExpression = expressionNode.ToExpression();
 

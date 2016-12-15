@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
@@ -17,7 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public MemberMemberBindingNode() { }
 
-        public MemberMemberBindingNode(INodeFactory factory, MemberMemberBinding memberMemberBinding)
+        public MemberMemberBindingNode(NodeContext factory, MemberMemberBinding memberMemberBinding)
             : base(factory, memberMemberBinding.BindingType, memberMemberBinding.Member)
         {
             Bindings = new MemberBindingNodeList(factory, memberMemberBinding.Bindings);

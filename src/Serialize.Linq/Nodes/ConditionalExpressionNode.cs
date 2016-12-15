@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
@@ -17,7 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public ConditionalExpressionNode() { }
 
-        public ConditionalExpressionNode(INodeFactory factory, ConditionalExpression expression) : base(factory, expression) { }
+        public ConditionalExpressionNode(NodeContext factory, ConditionalExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "IFF")]
         public ExpressionNode IfFalse { get; set; }
@@ -34,9 +34,9 @@ namespace Serialize.Linq.Nodes
         /// <param name="expression">The expression.</param>
         protected override void Initialize(ConditionalExpression expression)
         {
-            Test = Factory.Create(expression.Test);
-            IfTrue = Factory.Create(expression.IfTrue);
-            IfFalse = Factory.Create(expression.IfFalse);
+            Test = Context.Create(expression.Test);
+            IfTrue = Context.Create(expression.IfTrue);
+            IfFalse = Context.Create(expression.IfFalse);
         }
 
         /// <summary>

@@ -6,7 +6,6 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
 using Serialize.Linq.Internals;
 using System;
 using System.Linq.Expressions;
@@ -30,7 +29,7 @@ namespace Serialize.Linq.Nodes
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="value">The value.</param>
-        public ConstantExpressionNode(INodeFactory factory, object value)
+        public ConstantExpressionNode(NodeContext factory, object value)
             : this(factory, value, null) { }
 
         /// <summary>
@@ -39,12 +38,11 @@ namespace Serialize.Linq.Nodes
         /// <param name="factory">The factory.</param>
         /// <param name="value">The value.</param>
         /// <param name="type">The type.</param>
-        public ConstantExpressionNode(INodeFactory factory, object value, Type type)
+        public ConstantExpressionNode(NodeContext factory, object value, Type type)
             : base(factory, ExpressionType.Constant)
         {
             Value = value;
-            if (type != null)
-                base.Type = factory.Create(type);
+            if (type != null) base.Type = new TypeNode(factory, type);
 
         }
 
@@ -53,7 +51,7 @@ namespace Serialize.Linq.Nodes
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="expression">The expression.</param>
-        public ConstantExpressionNode(INodeFactory factory, ConstantExpression expression)
+        public ConstantExpressionNode(NodeContext factory, ConstantExpression expression)
             : base(factory, expression) { }
 
         /// <summary>
@@ -72,7 +70,7 @@ namespace Serialize.Linq.Nodes
                 {
                     if (value == null)
                     {
-                        value = Factory.Create(Value.GetType());
+                        value = new TypeNode(Context, Value.GetType());
                     }
                     else
                     {
@@ -102,7 +100,7 @@ namespace Serialize.Linq.Nodes
                     throw new ArgumentException("Expression not allowed.", "value");
 
                 if (value is Type)
-                    _value = Factory.Create(value as Type);
+                    _value = new TypeNode(Context, value as Type);
                 else
                     _value = value;
 
@@ -112,8 +110,7 @@ namespace Serialize.Linq.Nodes
                 var type = base.Type != null ? base.Type.ToType(new ExpressionContext()) : null;
                 if (type == null)
                 {
-                    if (Factory != null)
-                        base.Type = Factory.Create(_value.GetType());
+                    if (Context != null) base.Type = new TypeNode(Context, _value.GetType());
                     return;
                 }
                 _value = ValueConverter.Convert(_value, type);

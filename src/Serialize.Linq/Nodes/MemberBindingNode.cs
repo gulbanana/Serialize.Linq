@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -19,14 +19,14 @@ namespace Serialize.Linq.Nodes
     {
         protected MemberBindingNode() { }
 
-        protected MemberBindingNode(INodeFactory factory)
+        protected MemberBindingNode(NodeContext factory)
             : base(factory) { }
 
-        protected MemberBindingNode(INodeFactory factory, MemberBindingType bindingType, MemberInfo memberInfo)
+        protected MemberBindingNode(NodeContext factory, MemberBindingType bindingType, MemberInfo memberInfo)
             : base(factory)
         {
             BindingType = bindingType;
-            Member = new MemberInfoNode(Factory, memberInfo);
+            Member = new MemberInfoNode(Context, memberInfo);
         }
         
         [DataMember(EmitDefaultValue = false, Name = "BT")]
@@ -37,7 +37,7 @@ namespace Serialize.Linq.Nodes
 
         internal abstract MemberBinding ToMemberBinding(ExpressionContext context);
 
-        internal static MemberBindingNode Create(INodeFactory factory, MemberBinding memberBinding)
+        internal static MemberBindingNode Create(NodeContext factory, MemberBinding memberBinding)
         {
             MemberBindingNode memberBindingNode = null;
 

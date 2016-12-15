@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -19,7 +19,7 @@ namespace Serialize.Linq.Nodes
     {
         public ConstructorInfoNode() { }
 
-        public ConstructorInfoNode(INodeFactory factory, ConstructorInfo memberInfo)
+        public ConstructorInfoNode(NodeContext factory, ConstructorInfo memberInfo)
             : base(factory, memberInfo) { }
 
         /// <summary>

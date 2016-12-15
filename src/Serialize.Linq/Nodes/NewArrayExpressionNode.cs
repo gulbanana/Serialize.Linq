@@ -9,7 +9,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Nodes
 {
@@ -18,7 +18,7 @@ namespace Serialize.Linq.Nodes
     {
         public NewArrayExpressionNode() { }
 
-        public NewArrayExpressionNode(INodeFactory factory, NewArrayExpression expression)
+        public NewArrayExpressionNode(NodeContext factory, NewArrayExpression expression)
             : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "E")]
@@ -26,7 +26,7 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(NewArrayExpression expression)
         {
-            Expressions = new ExpressionNodeList(Factory, expression.Expressions);
+            Expressions = new ExpressionNodeList(Context, expression.Expressions);
         }
 
         public override Expression ToExpression(ExpressionContext context)

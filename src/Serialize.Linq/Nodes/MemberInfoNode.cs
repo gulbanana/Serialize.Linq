@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Factories;
+using Serialize.Linq.Internals;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -19,17 +19,19 @@ namespace Serialize.Linq.Nodes
     {
         public MemberInfoNode() { }
 
-        public MemberInfoNode(INodeFactory factory, MemberInfo memberInfo)
+        public MemberInfoNode(NodeContext factory, MemberInfo memberInfo)
             : base(factory, memberInfo) { }
 
         protected override IEnumerable<MemberInfo> GetMemberInfosForType(ExpressionContext context, Type type)
         {
-            BindingFlags? flags = null;
-            if (context != null)
-                flags = context.GetBindingFlags();
-            else if (Factory != null)
-                flags = Factory.GetBindingFlags();
+            BindingFlags? flags = GetBindingFlags();
             return flags == null ? type.GetMembers() : type.GetMembers(flags.Value);
+        }
+
+        // returning null would disallow access to privates
+        private BindingFlags? GetBindingFlags()
+        {
+            return BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
         }
     }
 }
