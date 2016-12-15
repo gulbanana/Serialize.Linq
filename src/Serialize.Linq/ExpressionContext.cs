@@ -29,7 +29,7 @@ namespace Serialize.Linq
 
         public virtual BindingFlags? GetBindingFlags()
         {
-            if (!this.AllowPrivateFieldAccess)
+            if (!AllowPrivateFieldAccess)
                 return null;
 
             return BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;

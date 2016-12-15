@@ -25,8 +25,8 @@ namespace Serialize.Linq.Nodes
         protected MemberBindingNode(INodeFactory factory, MemberBindingType bindingType, MemberInfo memberInfo)
             : base(factory)
         {
-            this.BindingType = bindingType;
-            this.Member = new MemberInfoNode(this.Factory, memberInfo);
+            BindingType = bindingType;
+            Member = new MemberInfoNode(Factory, memberInfo);
         }
         
         [DataMember(EmitDefaultValue = false, Name = "BT")]

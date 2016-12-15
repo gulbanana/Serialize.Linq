@@ -9,7 +9,7 @@ namespace Serialize.Linq
     {
         public ExpressionNode Convert(Expression expression, FactorySettings factorySettings = null)
         {
-            var factory = this.CreateFactory(expression, factorySettings);
+            var factory = CreateFactory(expression, factorySettings);
             return factory.Create(expression);
         }
 

@@ -40,22 +40,22 @@ namespace Serialize.Linq.Nodes
 
             if (type.GetTypeInfo().IsGenericType)
             {
-                this.GenericArguments = type.GetGenericArguments().Select(t => new TypeNode(this.Factory, t)).ToArray();
+                GenericArguments = type.GetGenericArguments().Select(t => new TypeNode(Factory, t)).ToArray();
 
                 var typeDefinition = type.GetGenericTypeDefinition();
-                if (isAnonymousType || !this.Factory.Settings.UseRelaxedTypeNames)
-                    this.Name = typeDefinition.AssemblyQualifiedName;
+                if (isAnonymousType || !Factory.Settings.UseRelaxedTypeNames)
+                    Name = typeDefinition.AssemblyQualifiedName;
                 else
-                    this.Name = typeDefinition.FullName;
-                this.AssemblyQualifiedName = typeDefinition.AssemblyQualifiedName;
+                    Name = typeDefinition.FullName;
+                AssemblyQualifiedName = typeDefinition.AssemblyQualifiedName;
             }
             else
             {
-                if (isAnonymousType || !this.Factory.Settings.UseRelaxedTypeNames)
-                    this.Name = type.AssemblyQualifiedName;
+                if (isAnonymousType || !Factory.Settings.UseRelaxedTypeNames)
+                    Name = type.AssemblyQualifiedName;
                 else
-                    this.Name = type.FullName;
-                this.AssemblyQualifiedName = type.AssemblyQualifiedName;
+                    Name = type.FullName;
+                AssemblyQualifiedName = type.AssemblyQualifiedName;
             }
         }
 
@@ -73,13 +73,13 @@ namespace Serialize.Linq.Nodes
             var type = context.ResolveType(this);
             if (type == null)
             {
-                if (string.IsNullOrWhiteSpace(this.Name))
+                if (string.IsNullOrWhiteSpace(Name))
                     return null;
-                throw new SerializationException(string.Format("Failed to serialize '{0}' to a type object.", this.Name));
+                throw new SerializationException(string.Format("Failed to serialize '{0}' to a type object.", Name));
             }
 
-            if (this.GenericArguments != null)
-                type = type.MakeGenericType(this.GenericArguments.Select(t => t.ToType(context)).ToArray());
+            if (GenericArguments != null)
+                type = type.MakeGenericType(GenericArguments.Select(t => t.ToType(context)).ToArray());
 
             return type;
         }

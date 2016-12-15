@@ -42,7 +42,7 @@ namespace Serialize.Linq.Nodes
         public ConstantExpressionNode(INodeFactory factory, object value, Type type)
             : base(factory, ExpressionType.Constant)
         {
-            this.Value = value;
+            Value = value;
             if (type != null)
                 base.Type = factory.Create(type);
 
@@ -68,16 +68,16 @@ namespace Serialize.Linq.Nodes
             get { return base.Type; }
             set
             {
-                if (this.Value != null)
+                if (Value != null)
                 {
                     if (value == null)
                     {
-                        value = this.Factory.Create(this.Value.GetType());
+                        value = Factory.Create(Value.GetType());
                     }
                     else
                     {
                         var context = new ExpressionContext();
-                        if (!value.ToType(context).IsInstanceOfType(this.Value))
+                        if (!value.ToType(context).IsInstanceOfType(Value))
                             throw new Exception($"Type '{value.ToType(context)}' is not an instance of the current value type '{Value.GetType()}'.");
                     }
                 }
@@ -102,7 +102,7 @@ namespace Serialize.Linq.Nodes
                     throw new ArgumentException("Expression not allowed.", "value");
 
                 if (value is Type)
-                    _value = this.Factory.Create(value as Type);
+                    _value = Factory.Create(value as Type);
                 else
                     _value = value;
 
@@ -112,8 +112,8 @@ namespace Serialize.Linq.Nodes
                 var type = base.Type != null ? base.Type.ToType(new ExpressionContext()) : null;
                 if (type == null)
                 {
-                    if (this.Factory != null)
-                        base.Type = this.Factory.Create(_value.GetType());
+                    if (Factory != null)
+                        base.Type = Factory.Create(_value.GetType());
                     return;
                 }
                 _value = ValueConverter.Convert(_value, type);
@@ -126,7 +126,7 @@ namespace Serialize.Linq.Nodes
         /// <param name="expression">The expression.</param>
         protected override void Initialize(ConstantExpression expression)
         {
-            this.Value = expression.Value;
+            Value = expression.Value;
         }
 
         /// <summary>
@@ -136,12 +136,12 @@ namespace Serialize.Linq.Nodes
         /// <returns></returns>
         public override Expression ToExpression(ExpressionContext context)
         {
-            var typeNode = this.Value as TypeNode;
+            var typeNode = Value as TypeNode;
             if (typeNode != null)
-                return Expression.Constant(typeNode.ToType(context), this.Type.ToType(context));
-            return this.Type != null 
-                ? Expression.Constant(this.Value, this.Type.ToType(context)) 
-                : Expression.Constant(this.Value);
+                return Expression.Constant(typeNode.ToType(context), Type.ToType(context));
+            return Type != null 
+                ? Expression.Constant(Value, Type.ToType(context)) 
+                : Expression.Constant(Value);
         }
     }
 }

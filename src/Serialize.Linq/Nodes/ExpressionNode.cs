@@ -29,7 +29,7 @@ namespace Serialize.Linq.Nodes
         protected ExpressionNode(INodeFactory factory, TExpression expression)
             : base(factory, expression.NodeType, expression.Type)
         {
-            this.Initialize(expression);
+            Initialize(expression);
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace Serialize.Linq.Nodes
         protected ExpressionNode(INodeFactory factory, ExpressionType nodeType, Type type = null)
             : base(factory)
         {
-            this.NodeType = nodeType;
-            this.Type = new TypeNode(factory, type);
+            NodeType = nodeType;
+            Type = new TypeNode(factory, type);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Serialize.Linq.Nodes
 
         public Expression ToExpression()
         {
-            return this.ToExpression(new ExpressionContext());
+            return ToExpression(new ExpressionContext());
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Serialize.Linq.Nodes
         /// <returns></returns>
         public Expression<TDelegate> ToExpression<TDelegate>(ExpressionContext context = null)
         {
-            return this.ToExpression(ConvertToExpression<TDelegate>, context ?? new ExpressionContext());
+            return ToExpression(ConvertToExpression<TDelegate>, context ?? new ExpressionContext());
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Serialize.Linq.Nodes
         /// <returns></returns>
         public Expression<Func<TEntity, bool>> ToBooleanExpression<TEntity>(ExpressionContext context = null)
         {
-            return this.ToExpression(ConvertToBooleanExpression<TEntity>, context ?? new ExpressionContext());
+            return ToExpression(ConvertToBooleanExpression<TEntity>, context ?? new ExpressionContext());
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Serialize.Linq.Nodes
         /// </returns>
         public override string ToString()
         {
-            return this.ToExpression().ToString();
+            return ToExpression().ToString();
         }
 
         /// <summary>

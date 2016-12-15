@@ -59,7 +59,7 @@ namespace Serialize.Linq.Nodes
             if(factory == null)
                 throw new ArgumentNullException("factory");
 
-            this.Factory = factory;
+            Factory = factory;
         }
 
         /// <summary>

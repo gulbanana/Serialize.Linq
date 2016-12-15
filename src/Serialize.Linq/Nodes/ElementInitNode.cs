@@ -28,7 +28,7 @@ namespace Serialize.Linq.Nodes
         /// <param name="elementInit">The element init.</param>
         public ElementInitNode(INodeFactory factory, ElementInit elementInit) : base(factory)
         {
-            this.Initialize(elementInit);
+            Initialize(elementInit);
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace Serialize.Linq.Nodes
             if (elementInit == null)
                 throw new ArgumentNullException("elementInit");
 
-            this.AddMethod = new MethodInfoNode(this.Factory, elementInit.AddMethod);
-            this.Arguments = new ExpressionNodeList(this.Factory, elementInit.Arguments);
+            AddMethod = new MethodInfoNode(Factory, elementInit.AddMethod);
+            Arguments = new ExpressionNodeList(Factory, elementInit.Arguments);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Serialize.Linq.Nodes
 
         internal ElementInit ToElementInit(ExpressionContext context)
         {
-            return Expression.ElementInit(this.AddMethod.ToMemberInfo(context), this.Arguments.GetExpressions(context));
+            return Expression.ElementInit(AddMethod.ToMemberInfo(context), Arguments.GetExpressions(context));
         }
     }
 }

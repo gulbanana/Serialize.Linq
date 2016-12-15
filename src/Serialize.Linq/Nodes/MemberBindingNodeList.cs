@@ -26,7 +26,7 @@ namespace Serialize.Linq.Nodes
                 throw new ArgumentNullException("factory");
             if (items == null)
                 throw new ArgumentNullException("items");
-            this.AddRange(items.Select(m => MemberBindingNode.Create(factory, m)));
+            AddRange(items.Select(m => MemberBindingNode.Create(factory, m)));
         }
 
         internal IEnumerable<MemberBinding> GetMemberBindings(ExpressionContext context)

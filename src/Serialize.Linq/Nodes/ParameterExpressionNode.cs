@@ -28,8 +28,8 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(ParameterExpression expression)
         {
-            this.IsByRef = expression.IsByRef;
-            this.Name = expression.Name;
+            IsByRef = expression.IsByRef;
+            Name = expression.Name;
         }
 
         public override Expression ToExpression(ExpressionContext context)

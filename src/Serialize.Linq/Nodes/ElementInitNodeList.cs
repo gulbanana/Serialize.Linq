@@ -26,7 +26,7 @@ namespace Serialize.Linq.Nodes
                 throw new ArgumentNullException("factory");
             if (items == null)
                 throw new ArgumentNullException("items");
-            this.AddRange(items.Select(item => new ElementInitNode(factory, item)));
+            AddRange(items.Select(item => new ElementInitNode(factory, item)));
         }
 
         internal IEnumerable<ElementInit> GetElementInits(ExpressionContext context)

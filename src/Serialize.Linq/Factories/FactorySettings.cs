@@ -4,7 +4,7 @@
     {
         public FactorySettings()
         {
-            this.UseRelaxedTypeNames = true;
+            UseRelaxedTypeNames = true;
         }
 
         public bool UseRelaxedTypeNames { get; set; }

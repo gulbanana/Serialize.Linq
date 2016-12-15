@@ -30,14 +30,14 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(LambdaExpression expression)
         {
-            this.Parameters = new ExpressionNodeList(this.Factory, expression.Parameters);
-            this.Body = this.Factory.Create(expression.Body);
+            Parameters = new ExpressionNodeList(Factory, expression.Parameters);
+            Body = Factory.Create(expression.Body);
         }
 
         public override Expression ToExpression(ExpressionContext context)
         {
-            var body = this.Body.ToExpression(context);
-            var parameters = this.Parameters.GetParameterExpressions(context).ToArray();
+            var body = Body.ToExpression(context);
+            var parameters = Parameters.GetParameterExpressions(context).ToArray();
 
             var bodyParameters = body.GetNodes().OfType<ParameterExpression>().ToArray();
             for (var i = 0; i < parameters.Length; ++i)
@@ -47,7 +47,7 @@ namespace Serialize.Linq.Nodes
                     parameters[i] = matchingParameter.First();
             }
 
-            return Expression.Lambda(this.Type.ToType(context), body, parameters);
+            return Expression.Lambda(Type.ToType(context), body, parameters);
         }
     }
 }

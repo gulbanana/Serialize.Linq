@@ -26,7 +26,7 @@ namespace Serialize.Linq.Nodes
                 throw new ArgumentNullException("factory");
             if (items == null)
                 throw new ArgumentNullException("items");
-            this.AddRange(items.Select(factory.Create));
+            AddRange(items.Select(factory.Create));
         }
 
         internal IEnumerable<Expression> GetExpressions(ExpressionContext context)
