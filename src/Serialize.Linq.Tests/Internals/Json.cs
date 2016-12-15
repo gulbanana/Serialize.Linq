@@ -37,7 +37,7 @@ namespace Serialize.Linq.Tests
         {
             public override Type BindToType(string assemblyName, string typeName)
             {
-                if (assemblyName == "SL") assemblyName = "Serialize.Linq, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null";
+                if (assemblyName == null) assemblyName = "Serialize.Linq, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null";
                 var a = Assembly.Load(new AssemblyName(assemblyName));
                 var result = a.GetTypes().Where(t => DCName(t) == typeName).SingleOrDefault();
                 return result ?? Type.GetType(Assembly.CreateQualifiedName(assemblyName, typeName));
@@ -46,7 +46,7 @@ namespace Serialize.Linq.Tests
             public override void BindToName(Type serializedType, out string assemblyName, out string typeName)
             {
                 assemblyName = serializedType.GetTypeInfo().Assembly.FullName;
-                if (assemblyName == "Serialize.Linq, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null") assemblyName = "SL";
+                if (assemblyName == "Serialize.Linq, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null") assemblyName = null;
                 typeName = DCName(serializedType) ?? serializedType.FullName;
             }
 
