@@ -17,13 +17,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "L")]
-#endif
-    #endregion
     public class LambdaExpressionNode : ExpressionNode<LambdaExpression>
     {
         public LambdaExpressionNode() { }
@@ -31,22 +25,10 @@ namespace Serialize.Linq.Nodes
         public LambdaExpressionNode(INodeFactory factory, LambdaExpression expression)
             : base(factory, expression) { }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "B")]
-#endif
-        #endregion
         public ExpressionNode Body { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "P")]
-#endif
-        #endregion
         public ExpressionNodeList Parameters { get; set; }
 
         protected override void Initialize(LambdaExpression expression)

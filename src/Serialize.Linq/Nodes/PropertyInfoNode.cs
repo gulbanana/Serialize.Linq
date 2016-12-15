@@ -14,21 +14,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if SERIALIZE_LINQ_BORKED_VERION
-    #if SERIALIZE_LINQ_WITH_LONG_DATA_NAMES
-        [DataContract]
-    #else
-        [DataContract(Name = "PI")]
-    #endif
-#else
-    #if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataContract]
-    #else
-        [DataContract(Name = "PI")]
-    #endif
-#endif
-    #endregion
+    [DataContract(Name = "PI")]
     public class PropertyInfoNode : MemberNode<PropertyInfo>
     {
         public PropertyInfoNode() { }

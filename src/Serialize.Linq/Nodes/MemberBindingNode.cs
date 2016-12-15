@@ -6,21 +6,15 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Factories;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "MB")]
-#endif
-    #endregion
     public abstract class MemberBindingNode : Node
     {
         protected MemberBindingNode() { }
@@ -35,22 +29,10 @@ namespace Serialize.Linq.Nodes
             this.Member = new MemberInfoNode(this.Factory, memberInfo);
         }
         
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "BT")]
-#endif
-        #endregion
         public MemberBindingType BindingType { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "M")]
-#endif
-        #endregion
         public MemberInfoNode Member { get; set; }
 
         internal abstract MemberBinding ToMemberBinding(ExpressionContext context);

@@ -15,13 +15,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [CollectionDataContract]
-#else
     [CollectionDataContract(Name = "MIL")]
-#endif
-    #endregion
     public class MemberInfoNodeList : List<MemberInfoNode>
     {
         public MemberInfoNodeList() { }

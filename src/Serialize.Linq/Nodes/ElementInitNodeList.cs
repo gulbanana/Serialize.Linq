@@ -6,22 +6,16 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region CollectionDataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [CollectionDataContract]
-#else
     [CollectionDataContract(Name = "EIL")]
-#endif
-    #endregion
     public class ElementInitNodeList : List<ElementInitNode>
     {
         public ElementInitNodeList() { }

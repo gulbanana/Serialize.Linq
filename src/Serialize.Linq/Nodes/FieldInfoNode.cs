@@ -6,21 +6,15 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
+using Serialize.Linq.Factories;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "FI")]
-#endif
-    #endregion
     public class FieldInfoNode : MemberNode<FieldInfo>
     {
         public FieldInfoNode() { }

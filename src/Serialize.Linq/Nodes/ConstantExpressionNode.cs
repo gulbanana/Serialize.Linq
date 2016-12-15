@@ -15,13 +15,7 @@ using System.Runtime.Serialization;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "C")]   
-#endif
-    #endregion
     public class ConstantExpressionNode : ExpressionNode<ConstantExpression>
     {
         private object _value;
@@ -91,8 +85,6 @@ namespace Serialize.Linq.Nodes
             }
         }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
@@ -100,11 +92,7 @@ namespace Serialize.Linq.Nodes
         /// The value.
         /// </value>
         /// <exception cref="System.ArgumentException">Expression not allowed.;value</exception>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "V")]
-#endif
-        #endregion
         public object Value
         {
             get { return _value; }

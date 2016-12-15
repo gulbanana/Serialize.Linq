@@ -7,19 +7,12 @@
 #endregion
 
 using Serialize.Linq.Factories;
-using System;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "B")]
-#endif
-    #endregion
     public class BinaryExpressionNode : ExpressionNode<BinaryExpression>
     {
         /// <summary>
@@ -35,79 +28,49 @@ namespace Serialize.Linq.Nodes
         public BinaryExpressionNode(INodeFactory factory, BinaryExpression expression)
             : base(factory, expression) { }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the conversion.
         /// </summary>
         /// <value>
         /// The conversion.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "C")]
-#endif
-        #endregion
         public ExpressionNode Conversion { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets a value indicating whether this instance is lifted to null.
         /// </summary>
         /// <value>
         /// <c>true</c> if this instance is lifted to null; otherwise, <c>false</c>.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "I")]
-#endif
-        #endregion
         public bool IsLiftedToNull { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the left.
         /// </summary>
         /// <value>
         /// The left.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "L")]
-#endif
-        #endregion
         public ExpressionNode Left { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the method.
         /// </summary>
         /// <value>
         /// The method.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "M")]
-#endif
-        #endregion
         public MethodInfoNode Method { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the right.
         /// </summary>
         /// <value>
         /// The right.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "R")]
-#endif
-        #endregion
         public ExpressionNode Right { get; set; }
 
         /// <summary>

@@ -6,20 +6,13 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using System;
+using Serialize.Linq.Factories;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "M")]
-#endif
-    #endregion
     public class MemberExpressionNode : ExpressionNode<MemberExpression>
     {
         public MemberExpressionNode() { }
@@ -27,22 +20,10 @@ namespace Serialize.Linq.Nodes
         public MemberExpressionNode(INodeFactory factory, MemberExpression expression)
             : base(factory, expression) { }
 
-        #region DataMember
-        #if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "E")]
-#endif
-        #endregion
         public ExpressionNode Expression { get; set; }
 
-        #region DataMember
-        #if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "M")]
-#endif
-        #endregion
         public MemberInfoNode Member { get; set; }
 
         protected override void Initialize(MemberExpression expression)

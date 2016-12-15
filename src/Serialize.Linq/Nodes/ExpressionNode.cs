@@ -13,17 +13,7 @@ using System.Runtime.Serialization;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-#if SERIALIZE_LINQ_BORKED_VERION
-    [DataContract]
-#else
-    [DataContract(Name = "ExpressionNodeGeneric")]
-#endif
-#else
     [DataContract(Name = "tE")]    
-#endif
-    #endregion
     public abstract class ExpressionNode<TExpression> : ExpressionNode where TExpression : Expression
     {
         /// <summary>
@@ -58,16 +48,7 @@ namespace Serialize.Linq.Nodes
         protected abstract void Initialize(TExpression expression);
     }
 
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    /// <summary>
-    /// 
-    /// </summary>
-    [DataContract]
-#else
     [DataContract(Name = "E")]
-#endif
-    #endregion
     public abstract class ExpressionNode : Node
     {
         /// <summary>
@@ -88,34 +69,22 @@ namespace Serialize.Linq.Nodes
             this.Type = new TypeNode(factory, type);
         }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the type of the node.
         /// </summary>
         /// <value>
         /// The type of the node.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "NT")]
-#endif
-        #endregion
         public ExpressionType NodeType { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
         /// <value>
         /// The type.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "T")]
-#endif
-        #endregion
         public virtual TypeNode Type { get; set; }
 
         /// <summary>

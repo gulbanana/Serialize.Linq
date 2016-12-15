@@ -15,17 +15,7 @@ using System.Runtime.Serialization;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-#if SERIALIZE_LINQ_BORKED_VERION
-    [DataContract]
-#else
-    [DataContract(Name = "MemberNodeGeneric")]
-#endif
-#else
     [DataContract(Name = "MN")]
-#endif
-    #endregion
     public abstract class MemberNode<TMemberInfo> : Node where TMemberInfo : MemberInfo
     {
         /// <summary>
@@ -45,34 +35,22 @@ namespace Serialize.Linq.Nodes
                 this.Initialize(memberInfo);
         }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the type of the declaring.
         /// </summary>
         /// <value>
         /// The type of the declaring.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "D")]
-#endif
-        #endregion
         public TypeNode DeclaringType { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the signature.
         /// </summary>
         /// <value>
         /// The signature.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "S")]
-#endif
-        #endregion
         public string Signature { get; set; }
 
         /// <summary>

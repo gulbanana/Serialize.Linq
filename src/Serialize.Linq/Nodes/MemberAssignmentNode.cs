@@ -6,20 +6,13 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using System;
+using Serialize.Linq.Factories;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "MA")]   
-#endif
-    #endregion
     public class MemberAssignmentNode : MemberBindingNode
     {
         public MemberAssignmentNode() { }
@@ -30,13 +23,7 @@ namespace Serialize.Linq.Nodes
             this.Expression = this.Factory.Create(memberAssignment.Expression);
         }
 
-        #region DataMember
-        #if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "E")]
-#endif
-        #endregion
         public ExpressionNode Expression { get; set; }
 
         internal override MemberBinding ToMemberBinding(ExpressionContext context)

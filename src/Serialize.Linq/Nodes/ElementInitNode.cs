@@ -13,13 +13,7 @@ using System.Runtime.Serialization;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "EI")]
-#endif
-    #endregion
     public class ElementInitNode : Node
     {
         /// <summary>
@@ -51,34 +45,22 @@ namespace Serialize.Linq.Nodes
             this.Arguments = new ExpressionNodeList(this.Factory, elementInit.Arguments);
         }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the arguments.
         /// </summary>
         /// <value>
         /// The arguments.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "A")]
-#endif
-        #endregion
         public ExpressionNodeList Arguments { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
         /// <summary>
         /// Gets or sets the add method.
         /// </summary>
         /// <value>
         /// The add method.
         /// </value>
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "M")]
-#endif
-        #endregion
         public MethodInfoNode AddMethod { get; set; }
 
         internal ElementInit ToElementInit(ExpressionContext context)

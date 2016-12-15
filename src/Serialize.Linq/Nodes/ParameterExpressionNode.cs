@@ -15,13 +15,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "P")]
-#endif
-    #endregion
     public class ParameterExpressionNode : ExpressionNode<ParameterExpression>
     {
         public ParameterExpressionNode() { }
@@ -29,23 +23,10 @@ namespace Serialize.Linq.Nodes
         public ParameterExpressionNode(INodeFactory factory, ParameterExpression expression)
             : base(factory, expression) { }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "I")]
-#endif
-
-        #endregion
         public bool IsByRef { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "N")]
-#endif
-        #endregion
         public string Name { get; set; }
 
         protected override void Initialize(ParameterExpression expression)

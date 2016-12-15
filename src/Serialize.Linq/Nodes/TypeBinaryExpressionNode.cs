@@ -13,13 +13,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "TB")]   
-#endif
-    #endregion
     public class TypeBinaryExpressionNode : ExpressionNode<TypeBinaryExpression>
     {
         public TypeBinaryExpressionNode() { }
@@ -27,24 +21,11 @@ namespace Serialize.Linq.Nodes
         public TypeBinaryExpressionNode(INodeFactory factory, TypeBinaryExpression expression)
             : base(factory, expression) { }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "E")]
-#endif
-        #endregion
         public ExpressionNode Expression { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "O")]
-#endif
-        #endregion
         public TypeNode TypeOperand { get; set; }
-
 
         protected override void Initialize(TypeBinaryExpression expression)
         {

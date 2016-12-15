@@ -13,13 +13,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "NA")]   
-#endif
-    #endregion
     public class NewArrayExpressionNode : ExpressionNode<NewArrayExpression>
     {
         public NewArrayExpressionNode() { }
@@ -27,13 +21,7 @@ namespace Serialize.Linq.Nodes
         public NewArrayExpressionNode(INodeFactory factory, NewArrayExpression expression)
             : base(factory, expression) { }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "E")]
-#endif
-        #endregion
         public ExpressionNodeList Expressions { get; set; }
 
         protected override void Initialize(NewArrayExpression expression)

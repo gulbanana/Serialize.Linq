@@ -15,13 +15,7 @@ using Serialize.Linq.Factories;
 
 namespace Serialize.Linq.Nodes
 {
-    #region DataContract
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-    [DataContract]
-#else
     [DataContract(Name = "MIN")]
-#endif
-    #endregion
     public class MethodInfoNode : MemberNode<MethodInfo>
     {
         public MethodInfoNode() { }
@@ -34,22 +28,10 @@ namespace Serialize.Linq.Nodes
             return type.GetMethods();
         }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "I")]
-#endif
-        #endregion
         public bool IsGenericMethod { get; set; }
 
-        #region DataMember
-#if !SERIALIZE_LINQ_OPTIMIZE_SIZE
-        [DataMember(EmitDefaultValue = false)]
-#else
         [DataMember(EmitDefaultValue = false, Name = "G")]
-#endif
-        #endregion
         public TypeNode[] GenericArguments { get; set; }
 
         protected override void Initialize(MethodInfo memberInfo)
