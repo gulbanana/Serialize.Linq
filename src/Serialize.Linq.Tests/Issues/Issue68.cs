@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Extensions;
 
 namespace Serialize.Linq.Tests.Issues
 {
     /// <summary>
     /// https://github.com/esskar/Serialize.Linq/issues/68
     /// </summary>
-    
+
     public class Issue68
     {
         class MyEntity

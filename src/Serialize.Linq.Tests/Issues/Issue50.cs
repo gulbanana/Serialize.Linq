@@ -1,6 +1,4 @@
-﻿using Serialize.Linq.Extensions;
-using Serialize.Linq.Nodes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,7 +9,7 @@ namespace Serialize.Linq.Tests.Issues
     /// <summary>
     /// https://github.com/esskar/Serialize.Linq/issues/50
     /// </summary>
-    
+
     public class Issue50
     {
         [Fact]

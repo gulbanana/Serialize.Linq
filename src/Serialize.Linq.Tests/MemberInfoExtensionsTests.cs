@@ -8,8 +8,8 @@
 
 using System.Reflection;
 using Xunit;
-using Serialize.Linq.Extensions;
 using Serialize.Linq.Tests.Internals;
+using Serialize.Linq.Internals;
 
 namespace Serialize.Linq.Tests
 {
@@ -21,21 +21,21 @@ namespace Serialize.Linq.Tests
         [Fact]
         public void GetReturnTypeOfPropertyTest()
         {
-            var actual = typeof(Bar).GetProperty("FirstName").GetReturnType();
+            var actual = MemberTypeEnumerator.GetMemberType(typeof(Bar).GetProperty("FirstName"));
             Assert.Equal(typeof(string), actual);
         }
 
         [Fact]
         public void GetReturnTypeOfFieldTest()
         {
-            var actual = typeof(Bar).GetField("IsFoo").GetReturnType();
+            var actual = MemberTypeEnumerator.GetMemberType(typeof(Bar).GetField("IsFoo"));
             Assert.Equal(typeof(bool), actual);
         }
 
         [Fact]
         public void GetReturnTypeOfMethodTest()
         {
-            var actual = typeof(Bar).GetMethod("GetName").GetReturnType();
+            var actual = MemberTypeEnumerator.GetMemberType(typeof(Bar).GetMethod("GetName"));
             Assert.Equal(typeof(string), actual);
         }
     }

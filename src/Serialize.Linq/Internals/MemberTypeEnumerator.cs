@@ -10,11 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Serialize.Linq.Extensions;
 
 namespace Serialize.Linq.Internals
 {
-    internal class MemberTypeEnumerator : IEnumerator<Type>
+    public class MemberTypeEnumerator : IEnumerator<Type>
     {
         private int _currentIndex;
         private readonly Type _type;
@@ -167,8 +166,26 @@ namespace Serialize.Linq.Internals
             var types = new List<Type>();
             var members = _type.GetMembers(_bindingFlags);
             foreach (var memberInfo in members.Where(IsConsideredMember))
-                types.AddRange(GetTypesOfType(memberInfo.GetReturnType()));
+                types.AddRange(GetTypesOfType(GetMemberType(memberInfo)));
             return types.ToArray();
+        }
+
+        // https://github.com/dotnet/corefx/issues/4670
+        public static Type GetMemberType(MemberInfo member)
+        {
+            PropertyInfo property = member as PropertyInfo;
+            if (property != null)
+                return property.PropertyType;
+
+            MethodInfo method = member as MethodInfo;
+            if (method != null)
+                return method.ReturnType;
+
+            FieldInfo field = member as FieldInfo;
+            if (field != null)
+                return field.FieldType;
+
+            throw new NotSupportedException("Unable to get return type of MemberInfo of type " + member);
         }
 
         /// <summary>

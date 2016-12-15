@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Xunit;
-using Serialize.Linq.Extensions;
 
 namespace Serialize.Linq.Tests.Issues
 {

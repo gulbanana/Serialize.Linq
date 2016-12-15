@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Serialize.Linq.Tests.Container;
+using Serialize.Linq.Tests.Internals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Extensions;
-using Serialize.Linq.Tests.Container;
-using Serialize.Linq.Tests.Internals;
 
 namespace Serialize.Linq.Tests.Issues
 {
     /// <summary>
     /// https://github.com/esskar/Serialize.Linq/issues/41
     /// </summary>
-    
+
     public class Issue41
     {
         [Fact]

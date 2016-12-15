@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Xunit;
-using Serialize.Linq.Extensions;
-using Serialize.Linq.Nodes;
 
 namespace Serialize.Linq.Tests.Issues
 {
     /// <summary>
     /// https://github.com/esskar/Serialize.Linq/issues/39
     /// </summary>
-    
+
     public class Issue39
     {
         private class DataPoint

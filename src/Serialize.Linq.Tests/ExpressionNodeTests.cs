@@ -6,7 +6,6 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-using Serialize.Linq.Extensions;
 using Serialize.Linq.Factories;
 using Serialize.Linq.Nodes;
 using Serialize.Linq.Tests.Internals;
