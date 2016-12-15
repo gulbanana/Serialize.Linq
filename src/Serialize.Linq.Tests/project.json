@@ -13,11 +13,10 @@
         "Microsoft.NETCore.App": {
           "version": "1.0.1",
           "type": "platform"
-        },
-        "System.Runtime": "4.3.0"
+        }
       }
     },
-    "net452": {}
+    "net461": {}
   },
   "testRunner": "xunit"
 }

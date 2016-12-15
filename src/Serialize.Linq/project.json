@@ -1,33 +1,13 @@
 {
   "version": "1.0.0-*",
   "dependencies": {
-    "Newtonsoft.Json": "9.0.1"
+    "NETStandard.Library": "1.6.1",
+    "System.Reflection.Emit": "4.3.0",
+    "System.Reflection.TypeExtensions": "4.3.0",
+    "System.Runtime.Serialization.Primitives": "4.3.0",
+    "System.Text.RegularExpressions": "4.3.0"
   },
   "frameworks": {
-    "net452": {
-      "frameworkAssemblies": {
-        "System.Runtime.Serialization": "",
-        "System.Xml": ""
-      }
-    },
-    "netstandard1.4": {
-      "dependencies": {
-        "NETStandard.Library": "1.6.1",
-        "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
-        "Microsoft.CSharp": "4.3.0",
-        "System.Collections": "4.3.0",
-        "System.Collections.Concurrent": "4.3.0",
-        "System.Linq": "4.3.0",
-        "System.Reflection": "4.3.0",
-        "System.Reflection.Extensions": "4.3.0",
-        "System.Reflection.TypeExtensions": "4.3.0",
-        "System.Reflection.Emit": "4.3.0",
-        "System.Runtime.Serialization.Json": "4.3.0",
-        "System.Runtime.Serialization.Primitives": "4.3.0",
-        "System.Runtime.Serialization.Xml": "4.3.0",
-        "System.Xml.XmlSerializer": "4.3.0",
-        "System.Text.RegularExpressions": "4.3.0"
-      }
-    }
+    "netstandard1.4": {}
   }
 }

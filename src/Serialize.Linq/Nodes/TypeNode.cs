@@ -31,11 +31,8 @@ namespace Serialize.Linq.Nodes
             if (type == null)
                 return;
 
-#if NETSTANDARD1_4
             bool isAttributeDefined = type.GetTypeInfo().GetCustomAttribute(typeof(CompilerGeneratedAttribute)) != null;
-#else
-            bool isAttributeDefined = Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false);
-#endif
+
             var isAnonymousType = isAttributeDefined
                 && type.GetTypeInfo().IsGenericType && type.Name.Contains("AnonymousType")
                 && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"))

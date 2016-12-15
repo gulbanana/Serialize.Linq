@@ -6,9 +6,6 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-#if !(NETSTANDARD1_4)
-using System;
-#endif
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
@@ -33,11 +30,7 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(LambdaExpression expression)
         {
-#if !(NETSTANDARD1_5)
             this.Parameters = new ExpressionNodeList(this.Factory, expression.Parameters);
-#else
-            this.Parameters = new ExpressionNodeList(this.Factory, expression.Parameters.Select(p => (Expression)p));
-#endif
             this.Body = this.Factory.Create(expression.Body);
         }
 

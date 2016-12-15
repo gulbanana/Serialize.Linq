@@ -6,9 +6,6 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-#if !(NETSTANDARD1_4)
-using System;
-#endif
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using Serialize.Linq.Factories;
@@ -31,11 +28,7 @@ namespace Serialize.Linq.Nodes
 
         protected override void Initialize(ParameterExpression expression)
         {
-#if !(NETSTANDARD1_5)
             this.IsByRef = expression.IsByRef;
-#else
-            this.IsByRef = false;
-#endif
             this.Name = expression.Name;
         }
 
