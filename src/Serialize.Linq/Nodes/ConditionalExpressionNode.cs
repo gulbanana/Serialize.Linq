@@ -28,10 +28,6 @@ namespace Serialize.Linq.Nodes
         [DataMember(EmitDefaultValue = false, Name = "C")]
         public ExpressionNode Test { get; set; }
 
-        /// <summary>
-        /// Initializes the specified expression.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
         protected override void Initialize(ConditionalExpression expression)
         {
             Test = Context.Create(expression.Test);
@@ -39,11 +35,6 @@ namespace Serialize.Linq.Nodes
             IfFalse = Context.Create(expression.IfFalse);
         }
 
-        /// <summary>
-        /// Converts this instance to an expression.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns></returns>
         public override Expression ToExpression(ExpressionContext context)
         {
             return Expression.Condition(Test.ToExpression(context), IfTrue.ToExpression(context), IfFalse.ToExpression(context));

@@ -20,8 +20,7 @@ namespace Serialize.Linq.Nodes
     {
         public MethodInfoNode() { }
 
-        public MethodInfoNode(NodeContext factory, MethodInfo memberInfo)
-            : base(factory, memberInfo) { }
+        public MethodInfoNode(NodeContext factory, MethodInfo memberInfo) : base(factory, memberInfo) { }
 
         protected override IEnumerable<MethodInfo> GetMemberInfosForType(ExpressionContext context, Type type)
         {
@@ -37,8 +36,7 @@ namespace Serialize.Linq.Nodes
         protected override void Initialize(MethodInfo memberInfo)
         {
             base.Initialize(memberInfo);
-            if (!memberInfo.IsGenericMethod)
-                return;
+            if (!memberInfo.IsGenericMethod) return;
 
             IsGenericMethod = true;
             Signature = memberInfo.GetGenericMethodDefinition().ToString();
@@ -48,8 +46,7 @@ namespace Serialize.Linq.Nodes
         public override MethodInfo ToMemberInfo(ExpressionContext context)
         {
             var method = base.ToMemberInfo(context);
-            if (method == null)
-                return null;
+            if (method == null) return null;
 
             if (IsGenericMethod && GenericArguments != null && GenericArguments.Length > 0)
             {

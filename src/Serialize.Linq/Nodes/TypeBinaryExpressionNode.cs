@@ -18,8 +18,7 @@ namespace Serialize.Linq.Nodes
     {
         public TypeBinaryExpressionNode() { }
 
-        public TypeBinaryExpressionNode(NodeContext factory, TypeBinaryExpression expression)
-            : base(factory, expression) { }
+        public TypeBinaryExpressionNode(NodeContext factory, TypeBinaryExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "E")]
         public ExpressionNode Expression { get; set; }

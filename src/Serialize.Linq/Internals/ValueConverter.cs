@@ -18,44 +18,21 @@ namespace Serialize.Linq.Internals
         private static readonly ConcurrentDictionary<Type, Func<object, Type, object>> _userDefinedConverters;
         private static readonly Regex _dateRegex = new Regex(@"/Date\((?<date>-?\d+)((?<offsign>[-+])((?<offhours>\d{2})(?<offminutes>\d{2})))?\)/", RegexOptions.Compiled);
         
-        /// <summary>
-        /// Initializes the <see cref="ValueConverter"/> class.
-        /// </summary>
         static ValueConverter()
         {
             _userDefinedConverters = new ConcurrentDictionary<Type, Func<object, Type, object>>();
         }
 
-        /// <summary>
-        /// Adds the custom converter.
-        /// </summary>
-        /// <param name="convertTo">The convert to.</param>
-        /// <param name="converter">The converter.</param>
         public static void AddCustomConverter(Type convertTo, Func<object, object> converter)
         {
             AddCustomConverter(convertTo, (v, t) => converter(v));
         }
 
-        /// <summary>
-        /// Adds the custom converter.
-        /// </summary>
-        /// <param name="converter">The converter.</param>
         public static void AddCustomConverter(Func<object, Type, object> converter)
         {
             AddCustomConverter(typeof(void), converter);
         }
 
-        /// <summary>
-        /// Adds the custom converter.
-        /// </summary>
-        /// <param name="convertTo">The convert to.</param>
-        /// <param name="converter">The converter.</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// convertTo
-        /// or
-        /// converter
-        /// </exception>
-        /// <exception cref="System.ApplicationException">Failed to add converter.</exception>
         public static void AddCustomConverter(Type convertTo, Func<object, Type, object> converter)
         {
             if (convertTo == null)
@@ -68,20 +45,11 @@ namespace Serialize.Linq.Internals
                 throw new Exception("Failed to add converter.");
         }
 
-        /// <summary>
-        /// Clears the custom converters.
-        /// </summary>
         public static void ClearCustomConverters()
         {
             _userDefinedConverters.Clear();
         }
 
-        /// <summary>
-        /// Converts the specified value.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="convertTo">The convert to.</param>
-        /// <returns></returns>
         public static object Convert(object value, Type convertTo)
         {
             if (value == null)
@@ -128,13 +96,6 @@ namespace Serialize.Linq.Internals
             }            
         }
 
-        /// <summary>
-        /// Tries the custom convert.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="convertTo">The convert to.</param>
-        /// <param name="convertedValue">The converted value.</param>
-        /// <returns></returns>
         private static bool TryCustomConvert(object value, Type convertTo, out object convertedValue)
         {
             Func<object, Type, object> converter;
@@ -158,12 +119,6 @@ namespace Serialize.Linq.Internals
             return false;
         }
 
-        /// <summary>
-        /// Tries the convert to date time.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns></returns>
         private static bool TryConvertToDateTime(object value, out DateTime dateTime)
         {
             var stringValue = value.ToString();

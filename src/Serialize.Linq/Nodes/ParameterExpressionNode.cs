@@ -17,8 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public ParameterExpressionNode() { }
 
-        public ParameterExpressionNode(NodeContext factory, ParameterExpression expression)
-            : base(factory, expression) { }
+        public ParameterExpressionNode(NodeContext factory, ParameterExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "I")]
         public bool IsByRef { get; set; }

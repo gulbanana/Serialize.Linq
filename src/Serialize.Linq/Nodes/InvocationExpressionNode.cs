@@ -17,8 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public InvocationExpressionNode() { }
 
-        public InvocationExpressionNode(NodeContext factory, InvocationExpression expression)
-            : base(factory, expression) { }
+        public InvocationExpressionNode(NodeContext factory, InvocationExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "A")]
         public ExpressionNodeList Arguments { get; set; }

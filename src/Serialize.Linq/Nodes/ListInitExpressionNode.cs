@@ -17,8 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public ListInitExpressionNode() { }
 
-        public ListInitExpressionNode(NodeContext factory, ListInitExpression expression)
-            : base(factory, expression) { }
+        public ListInitExpressionNode(NodeContext factory, ListInitExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "I")]
         public ElementInitNodeList Initializers { get; set; }

@@ -18,8 +18,7 @@ namespace Serialize.Linq.Nodes
     {
         public MethodCallExpressionNode() { }
 
-        public MethodCallExpressionNode(NodeContext factory, MethodCallExpression expression)
-            : base(factory, expression) { }
+        public MethodCallExpressionNode(NodeContext factory, MethodCallExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "A")]
         public ExpressionNodeList Arguments { get; set; }
@@ -40,8 +39,7 @@ namespace Serialize.Linq.Nodes
         public override Expression ToExpression(ExpressionContext context)
         {
             Expression objectExpression = null;
-            if (Object != null)
-                objectExpression = Object.ToExpression(context);
+            if (Object != null) objectExpression = Object.ToExpression(context);
 
             return Expression.Call(objectExpression, Method.ToMemberInfo(context), Arguments.GetExpressions(context).ToArray());
         }

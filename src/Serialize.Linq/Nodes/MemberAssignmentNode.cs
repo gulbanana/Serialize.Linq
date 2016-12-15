@@ -17,8 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public MemberAssignmentNode() { }
 
-        public MemberAssignmentNode(NodeContext factory, MemberAssignment memberAssignment)
-            : base(factory, memberAssignment.BindingType, memberAssignment.Member)
+        public MemberAssignmentNode(NodeContext factory, MemberAssignment memberAssignment) : base(factory, memberAssignment.BindingType, memberAssignment.Member)
         {
             Expression = Context.Create(memberAssignment.Expression);
         }

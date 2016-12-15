@@ -22,10 +22,9 @@ namespace Serialize.Linq.Nodes
 
         public ExpressionNodeList(NodeContext factory, IEnumerable<Expression> items)
         {
-            if (factory == null)
-                throw new ArgumentNullException("factory");
-            if (items == null)
-                throw new ArgumentNullException("items");
+            if (factory == null) new ArgumentNullException("factory");
+            if (items == null) throw new ArgumentNullException("items");
+
             AddRange(items.Select(factory.Create));
         }
 

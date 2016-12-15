@@ -18,8 +18,7 @@ namespace Serialize.Linq.Nodes
     {
         public NewExpressionNode() { }
 
-        public NewExpressionNode(NodeContext factory, NewExpression expression)
-            : base(factory, expression) { }
+        public NewExpressionNode(NodeContext factory, NewExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "A")]
         public ExpressionNodeList Arguments { get; set; }
@@ -39,12 +38,10 @@ namespace Serialize.Linq.Nodes
 
         public override Expression ToExpression(ExpressionContext context)
         {
-            if (Constructor == null)
-                return Expression.New(Type.ToType(context));
+            if (Constructor == null) return Expression.New(Type.ToType(context));
 
             var constructor = Constructor.ToMemberInfo(context);
-            if (constructor == null)
-                return Expression.New(Type.ToType(context));
+            if (constructor == null) return Expression.New(Type.ToType(context));
 
             var arguments = Arguments.GetExpressions(context).ToArray();
             var members = Members != null ? Members.GetMembers(context).ToArray() : null;

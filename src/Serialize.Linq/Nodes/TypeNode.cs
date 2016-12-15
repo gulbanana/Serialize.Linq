@@ -27,16 +27,14 @@ namespace Serialize.Linq.Nodes
 
         public TypeNode() { }
 
-        public TypeNode(NodeContext factory, Type type)
-            : base(factory)
+        public TypeNode(NodeContext factory, Type type) : base(factory)
         {
             Initialize(type);
         }
 
         private void Initialize(Type type)
         {
-            if (type == null)
-                return;
+            if (type == null) return;
 
             bool isAttributeDefined = type.GetTypeInfo().GetCustomAttribute(typeof(CompilerGeneratedAttribute)) != null;
 
@@ -51,16 +49,24 @@ namespace Serialize.Linq.Nodes
 
                 var typeDefinition = type.GetGenericTypeDefinition();
                 if (isAnonymousType || !_coreLibs.Contains(typeDefinition.GetTypeInfo().Assembly.GetName().Name))
+                {
                     Name = typeDefinition.AssemblyQualifiedName;
+                }
                 else
+                {
                     Name = typeDefinition.FullName;
+                }
             }
             else
             {
                 if (isAnonymousType || !_coreLibs.Contains(type.GetTypeInfo().Assembly.GetName().Name))
+                {
                     Name = type.AssemblyQualifiedName;
+                }
                 else
+                {
                     Name = type.FullName;
+                }
             }
         }
 
@@ -80,8 +86,7 @@ namespace Serialize.Linq.Nodes
                 throw new SerializationException(string.Format("Failed to serialize '{0}' to a type object.", Name));
             }
 
-            if (GenericArguments != null)
-                type = type.MakeGenericType(GenericArguments.Select(t => t.ToType(context)).ToArray());
+            if (GenericArguments != null) type = type.MakeGenericType(GenericArguments.Select(t => t.ToType(context)).ToArray());
 
             return type;
         }

@@ -17,8 +17,7 @@ namespace Serialize.Linq.Nodes
     {
         public MemberListBindingNode() { }
 
-        public MemberListBindingNode(NodeContext factory, MemberListBinding memberListBinding)
-            : base(factory, memberListBinding.BindingType, memberListBinding.Member)
+        public MemberListBindingNode(NodeContext factory, MemberListBinding memberListBinding) : base(factory, memberListBinding.BindingType, memberListBinding.Member)
         {
             Initializers = new ElementInitNodeList(Context, memberListBinding.Initializers);
         }

@@ -14,56 +14,29 @@ using System.Runtime.Serialization;
 
 namespace Serialize.Linq.Nodes
 {
-    [DataContract(Name = "C")]   
+    [DataContract(Name = "C")]
     public class ConstantExpressionNode : ExpressionNode<ConstantExpression>
     {
         private object _value;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConstantExpressionNode"/> class.
-        /// </summary>
         public ConstantExpressionNode() { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConstantExpressionNode"/> class.
-        /// </summary>
-        /// <param name="factory">The factory.</param>
-        /// <param name="value">The value.</param>
-        public ConstantExpressionNode(NodeContext factory, object value)
-            : this(factory, value, null) { }
+        public ConstantExpressionNode(NodeContext factory, object value) : this(factory, value, null) { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConstantExpressionNode" /> class.
-        /// </summary>
-        /// <param name="factory">The factory.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="type">The type.</param>
-        public ConstantExpressionNode(NodeContext factory, object value, Type type)
-            : base(factory, ExpressionType.Constant)
+        public ConstantExpressionNode(NodeContext factory, object value, Type type) : base(factory, ExpressionType.Constant)
         {
             Value = value;
             if (type != null) base.Type = new TypeNode(factory, type);
-
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConstantExpressionNode"/> class.
-        /// </summary>
-        /// <param name="factory">The factory.</param>
-        /// <param name="expression">The expression.</param>
-        public ConstantExpressionNode(NodeContext factory, ConstantExpression expression)
-            : base(factory, expression) { }
+        public ConstantExpressionNode(NodeContext factory, ConstantExpression expression) : base(factory, expression) { }
 
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
-        /// <exception cref="InvalidTypeException"></exception>
         public override TypeNode Type
         {
-            get { return base.Type; }
+            get
+            {
+                return base.Type;
+            }
             set
             {
                 if (Value != null)
@@ -83,13 +56,6 @@ namespace Serialize.Linq.Nodes
             }
         }
 
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        /// <exception cref="System.ArgumentException">Expression not allowed.;value</exception>
         [DataMember(EmitDefaultValue = false, Name = "V")]
         public object Value
         {
@@ -104,7 +70,7 @@ namespace Serialize.Linq.Nodes
                 else
                     _value = value;
 
-                if (_value == null || _value is TypeNode) 
+                if (_value == null || _value is TypeNode)
                     return;
 
                 var type = base.Type != null ? base.Type.ToType(new ExpressionContext()) : null;
@@ -117,27 +83,18 @@ namespace Serialize.Linq.Nodes
             }
         }
 
-        /// <summary>
-        /// Initializes the specified expression.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
         protected override void Initialize(ConstantExpression expression)
         {
             Value = expression.Value;
         }
 
-        /// <summary>
-        /// Converts this instance to an expression.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns></returns>
         public override Expression ToExpression(ExpressionContext context)
         {
             var typeNode = Value as TypeNode;
-            if (typeNode != null)
-                return Expression.Constant(typeNode.ToType(context), Type.ToType(context));
-            return Type != null 
-                ? Expression.Constant(Value, Type.ToType(context)) 
+            if (typeNode != null) return Expression.Constant(typeNode.ToType(context), Type.ToType(context));
+
+            return Type != null
+                ? Expression.Constant(Value, Type.ToType(context))
                 : Expression.Constant(Value);
         }
     }

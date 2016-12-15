@@ -19,11 +19,9 @@ namespace Serialize.Linq.Nodes
     {
         protected MemberBindingNode() { }
 
-        protected MemberBindingNode(NodeContext factory)
-            : base(factory) { }
+        protected MemberBindingNode(NodeContext factory) : base(factory) { }
 
-        protected MemberBindingNode(NodeContext factory, MemberBindingType bindingType, MemberInfo memberInfo)
-            : base(factory)
+        protected MemberBindingNode(NodeContext factory, MemberBindingType bindingType, MemberInfo memberInfo) : base(factory)
         {
             BindingType = bindingType;
             Member = new MemberInfoNode(Context, memberInfo);

@@ -18,8 +18,7 @@ namespace Serialize.Linq.Nodes
     {
         public NewArrayExpressionNode() { }
 
-        public NewArrayExpressionNode(NodeContext factory, NewArrayExpression expression)
-            : base(factory, expression) { }
+        public NewArrayExpressionNode(NodeContext factory, NewArrayExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "E")]
         public ExpressionNodeList Expressions { get; set; }

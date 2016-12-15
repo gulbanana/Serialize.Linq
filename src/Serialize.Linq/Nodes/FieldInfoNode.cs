@@ -19,8 +19,7 @@ namespace Serialize.Linq.Nodes
     {
         public FieldInfoNode() { }
 
-        public FieldInfoNode(NodeContext factory, FieldInfo memberInfo)
-            : base(factory, memberInfo) { }
+        public FieldInfoNode(NodeContext factory, FieldInfo memberInfo) : base(factory, memberInfo) { }
 
         protected override IEnumerable<FieldInfo> GetMemberInfosForType(ExpressionContext context, Type type)
         {

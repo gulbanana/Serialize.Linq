@@ -19,8 +19,7 @@ namespace Serialize.Linq.Nodes
     {
         public LambdaExpressionNode() { }
 
-        public LambdaExpressionNode(NodeContext factory, LambdaExpression expression)
-            : base(factory, expression) { }
+        public LambdaExpressionNode(NodeContext factory, LambdaExpression expression) : base(factory, expression) { }
 
         [DataMember(EmitDefaultValue = false, Name = "B")]
         public ExpressionNode Body { get; set; }

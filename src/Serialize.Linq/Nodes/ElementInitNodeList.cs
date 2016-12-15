@@ -22,10 +22,9 @@ namespace Serialize.Linq.Nodes
 
         public ElementInitNodeList(NodeContext factory, IEnumerable<ElementInit> items)
         {
-            if (factory == null)
-                throw new ArgumentNullException("factory");
-            if (items == null)
-                throw new ArgumentNullException("items");
+            if (factory == null) throw new ArgumentNullException("factory");
+            if (items == null) throw new ArgumentNullException("items");
+
             AddRange(items.Select(item => new ElementInitNode(factory, item)));
         }
 

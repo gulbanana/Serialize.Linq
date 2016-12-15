@@ -78,7 +78,6 @@ namespace Serialize.Linq.Internals
             throw new ArgumentException("Unknown expression of type " + expression.GetType());
         }
 
-        /// <exception cref="System.NotSupportedException">MemberType ' + memberExpression.Member.MemberType + ' not yet supported.</exception>
         private bool TryGetConstantValueFromMemberExpression(MemberExpression memberExpression, out object constantValue, out Type constantValueType)
         {
             constantValue = null;
