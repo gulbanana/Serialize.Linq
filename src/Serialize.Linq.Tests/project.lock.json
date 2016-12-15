@@ -8824,6 +8824,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Newtonsoft.Json >= 9.0.1",
       "Serialize.Linq",
       "dotnet-test-xunit >= 2.2.0-preview2-build1029",
       "xunit >= 2.2.0-beta2-build3300"
