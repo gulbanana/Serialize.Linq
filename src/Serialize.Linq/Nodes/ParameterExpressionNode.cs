@@ -6,7 +6,7 @@
 //  Contributing: https://github.com/esskar/Serialize.Linq
 #endregion
 
-#if !(NETSTANDARD1_5)
+#if !(NETSTANDARD1_4)
 using System;
 #endif
 using System.Linq.Expressions;

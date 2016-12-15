@@ -31,7 +31,7 @@ namespace Serialize.Linq.Nodes
             if (type == null)
                 return;
 
-#if NETSTANDARD1_5
+#if NETSTANDARD1_4
             bool isAttributeDefined = type.GetTypeInfo().GetCustomAttribute(typeof(CompilerGeneratedAttribute)) != null;
 #else
             bool isAttributeDefined = Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false);

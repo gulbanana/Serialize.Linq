@@ -2734,7 +2734,7 @@
       },
       "Serialize.Linq/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v1.5",
+        "framework": ".NETStandard,Version=v1.4",
         "dependencies": {
           "Microsoft.CSharp": "4.3.0",
           "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
@@ -2754,10 +2754,10 @@
           "System.Xml.XmlSerializer": "4.3.0"
         },
         "compile": {
-          "netstandard1.5/Serialize.Linq.dll": {}
+          "netstandard1.4/Serialize.Linq.dll": {}
         },
         "runtime": {
-          "netstandard1.5/Serialize.Linq.dll": {}
+          "netstandard1.4/Serialize.Linq.dll": {}
         }
       }
     },

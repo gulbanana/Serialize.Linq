@@ -10,7 +10,7 @@
         "System.Xml": ""
       }
     },
-    "netstandard1.5": {
+    "netstandard1.4": {
       "dependencies": {
         "NETStandard.Library": "1.6.1",
         "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
